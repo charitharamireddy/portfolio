@@ -1,0 +1,357 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Charitha Ramireddy · Full Stack Developer</title>
+<meta name="description" content="Full Stack Developer (MERN) building real-time voice and AI systems for cloud telephony. 1.1M+ calls a day on Alohaa.">
+<meta property="og:title" content="Charitha Ramireddy · Full Stack Developer">
+<meta property="og:description" content="MERN developer building real-time voice streaming, AI voice bots and event-driven pipelines at telephony scale.">
+<meta property="og:type" content="website">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%232447A0'/%3E%3Cg fill='white'%3E%3Crect x='7' y='13' width='3' height='6' rx='1.5'/%3E%3Crect x='12' y='9' width='3' height='14' rx='1.5'/%3E%3Crect x='17' y='6' width='3' height='20' rx='1.5'/%3E%3Crect x='22' y='11' width='3' height='10' rx='1.5'/%3E%3C/g%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&family=Source+Sans+3:wght@400;600;700&family=JetBrains+Mono:wght@500;700&display=swap">
+<style>
+/* Layout: one reading column; hero with a live waveform, stat strip, case studies, timeline, contact */
+:root {
+  --bg: #F7F8FC;
+  --surface: #FFFFFF;
+  --fg: #12172A;
+  --muted: #586079;
+  --line: #DFE3EE;
+  --accent: #2447A0;
+  --accent-2: #E8EDFA;
+  --signal: #0E8A6A;
+  --display: "Bricolage Grotesque", "Helvetica Neue", Arial, sans-serif;
+  --body: "Source Sans 3", "Segoe UI", system-ui, sans-serif;
+  --mono: "JetBrains Mono", ui-monospace, Menlo, Consolas, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root { --bg: #0C1020; --surface: #141A2E; --fg: #E7EAF4; --muted: #9AA3BC; --line: #262E48;
+          --accent: #8FA8F5; --accent-2: #1B2546; --signal: #5FD3AE; color-scheme: dark; }
+}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body { margin: 0; background: var(--bg); color: var(--fg); font-family: var(--body); font-size: 17px; line-height: 1.6; }
+a { color: var(--accent); }
+.wrap { max-width: 980px; margin: 0 auto; padding-left: max(20px, env(safe-area-inset-left)); padding-right: max(20px, env(safe-area-inset-right)); }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 4px; }
+
+/* nav */
+nav { position: sticky; top: 0; z-index: 10; background: color-mix(in srgb, var(--bg) 88%, transparent); backdrop-filter: blur(8px); border-bottom: 1px solid var(--line); }
+nav .wrap { display: flex; justify-content: space-between; align-items: center; gap: 16px; padding-block: 12px; }
+.logo { font-family: var(--display); font-weight: 800; font-size: 18px; color: var(--fg); text-decoration: none; }
+nav ul { list-style: none; display: flex; gap: 22px; margin: 0; padding: 0; font-size: 15px; font-weight: 600; }
+nav ul a { color: var(--muted); text-decoration: none; }
+nav ul a:hover { color: var(--fg); }
+@media (max-width: 640px) { nav ul { display: none; } }
+
+/* hero */
+.hero { padding-block: 72px 40px; display: grid; gap: 22px; }
+.kicker { font-family: var(--mono); font-size: 13px; letter-spacing: .06em; text-transform: uppercase; color: var(--signal); display: flex; align-items: center; gap: 10px; }
+.kicker::before { content: ""; width: 8px; height: 8px; border-radius: 50%; background: var(--signal); box-shadow: 0 0 0 4px color-mix(in srgb, var(--signal) 25%, transparent); }
+h1 { font-family: var(--display); font-weight: 800; font-size: clamp(38px, 7vw, 68px); line-height: 1.02; letter-spacing: -.02em; margin: 0; text-wrap: balance; }
+h1 em { font-style: normal; color: var(--accent); }
+.hero p { margin: 0; max-width: 62ch; font-size: 19px; color: var(--muted); }
+.cta { display: flex; gap: 12px; flex-wrap: wrap; }
+.btn { display: inline-flex; align-items: center; gap: 8px; font-weight: 700; font-size: 16px; padding: 11px 18px; border-radius: 8px; text-decoration: none; border: 1.5px solid var(--accent); }
+.btn.primary { background: var(--accent); color: var(--bg); }
+.btn.ghost { color: var(--accent); }
+.wave { height: 64px; display: flex; align-items: center; gap: 3px; margin-top: 8px; overflow: hidden; }
+.wave i { flex: 1 1 2px; max-width: 5px; border-radius: 3px; background: var(--accent); opacity: .85; height: var(--h); animation: pulse 1.6s ease-in-out infinite; animation-delay: var(--d); transform-origin: center; }
+@keyframes pulse { 0%,100% { transform: scaleY(.35); } 50% { transform: scaleY(1); } }
+@media (prefers-reduced-motion: reduce) { .wave i { animation: none; transform: scaleY(.7); } html { scroll-behavior: auto; } }
+
+/* stats */
+.stats { display: grid; grid-template-columns: repeat(4, 1fr); border: 1px solid var(--line); border-radius: 12px; background: var(--surface); margin-block: 8px 24px; }
+.stat { padding: 20px 22px; display: grid; gap: 4px; border-left: 1px solid var(--line); }
+.stat:first-child { border-left: 0; }
+.stat b { font-family: var(--mono); font-size: 26px; font-weight: 700; color: var(--accent); font-variant-numeric: tabular-nums; line-height: 1.2; }
+.stat span { font-size: 14.5px; color: var(--muted); line-height: 1.4; }
+@media (max-width: 760px) {
+  .stats { grid-template-columns: 1fr 1fr; }
+  .stat:nth-child(3) { border-left: 0; }
+  .stat:nth-child(n+3) { border-top: 1px solid var(--line); }
+}
+
+/* sections */
+section { padding-block: 56px 8px; }
+.sec-head { display: grid; gap: 6px; margin-bottom: 26px; }
+.sec-head .label { font-family: var(--mono); font-size: 12.5px; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); }
+h2 { font-family: var(--display); font-weight: 800; font-size: clamp(28px, 4vw, 38px); line-height: 1.1; margin: 0; letter-spacing: -.01em; }
+h3 { font-family: var(--display); font-weight: 600; font-size: 22px; line-height: 1.25; margin: 0; }
+
+/* feature case study */
+.feature { background: var(--surface); border: 1px solid var(--line); border-radius: 14px; padding: 28px; display: grid; gap: 18px; }
+.feature p { margin: 0; max-width: 70ch; }
+.hero > *, .feature > * { min-width: 0; }
+.diagram { overflow-x: auto; }
+.diagram svg { display: block; min-width: 640px; width: 100%; height: auto; }
+.diagram text { font-family: var(--mono); font-size: 12px; fill: var(--fg); }
+.diagram .sub { fill: var(--muted); font-size: 10.5px; }
+.diagram .box { fill: var(--accent-2); stroke: var(--accent); stroke-width: 1.2; }
+.diagram .box.ai { fill: var(--surface); stroke: var(--signal); }
+.diagram .flow { stroke: var(--accent); stroke-width: 1.5; fill: none; }
+.diagram .back { stroke: var(--signal); stroke-width: 1.5; fill: none; stroke-dasharray: 5 4; }
+.diagram .ah { fill: var(--accent); }
+.diagram .ah2 { fill: var(--signal); }
+.tags { display: flex; flex-wrap: wrap; gap: 6px; }
+.tags span { font-family: var(--mono); font-size: 12px; padding: 3px 8px; border-radius: 5px; background: var(--accent-2); color: var(--accent); }
+
+.grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; margin-top: 16px; }
+@media (max-width: 760px) { .grid { grid-template-columns: 1fr; } }
+.card { background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 22px; display: grid; gap: 10px; align-content: start; min-width: 0; }
+.card p { margin: 0; color: var(--muted); font-size: 16px; }
+.card .metric { font-family: var(--mono); font-size: 13.5px; font-weight: 700; color: var(--signal); }
+
+/* timeline */
+.timeline { display: grid; gap: 0; border-left: 2px solid var(--line); margin-left: 6px; }
+.job { position: relative; padding: 0 0 30px 26px; display: grid; gap: 6px; }
+.job::before { content: ""; position: absolute; left: -8px; top: 7px; width: 14px; height: 14px; border-radius: 50%; background: var(--bg); border: 3px solid var(--accent); }
+.job .when { font-family: var(--mono); font-size: 13px; color: var(--muted); }
+.job .where { color: var(--muted); font-weight: 600; }
+.job p { margin: 0; max-width: 68ch; }
+.job ul { margin: 4px 0 0; padding-left: 20px; display: grid; gap: 4px; max-width: 70ch; }
+
+/* skills */
+.skills { display: grid; grid-template-columns: 180px 1fr; gap: 12px 24px; }
+.skills dt { font-weight: 700; }
+.skills dd { margin: 0; color: var(--muted); }
+@media (max-width: 600px) { .skills { grid-template-columns: 1fr; gap: 2px; } .skills dd { margin-bottom: 10px; } }
+
+/* education */
+.edu { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+@media (max-width: 760px) { .edu { grid-template-columns: 1fr; } }
+
+/* contact */
+.contact { margin-block: 56px 40px; background: var(--accent); color: var(--bg); border-radius: 16px; padding: 40px 32px; display: grid; gap: 14px; }
+.contact h2 { color: var(--bg); }
+.contact p { margin: 0; max-width: 60ch; opacity: .9; }
+.contact .btn { border-color: var(--bg); }
+.contact .btn.primary { background: var(--bg); color: var(--accent); }
+.contact .btn.ghost { color: var(--bg); }
+.mail { font-family: var(--mono); font-size: 15px; user-select: all; }
+footer { padding-block: 0 40px; color: var(--muted); font-size: 14px; }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="wrap">
+    <a class="logo" href="#top">Charitha Ramireddy</a>
+    <ul>
+      <li><a href="#work">Work</a></li>
+      <li><a href="#experience">Experience</a></li>
+      <li><a href="#skills">Skills</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </div>
+</nav>
+
+<main id="top">
+  <div class="wrap">
+    <header class="hero">
+      <div class="kicker">Full Stack Developer · Hyderabad</div>
+      <h1>I build the systems behind <em>real-time voice and AI</em> calls.</h1>
+      <p>MERN developer with about five years on cloud telephony products. At Alohaa I built the WebSocket gateway that lets AI voice bots talk to callers live, plus the microservices and pipelines behind 1.1M+ calls a day.</p>
+      <div class="cta">
+        <a class="btn primary" href="Charitha_Ramireddy_Resume.pdf" target="_blank" rel="noopener">View resume</a>
+        <a class="btn ghost" href="#contact">Get in touch</a>
+      </div>
+      <div class="wave" id="wave" aria-hidden="true"></div>
+    </header>
+
+    <div class="stats" role="list">
+      <div class="stat" role="listitem"><b>1.1M+</b><span>calls per day on the Alohaa platform</span></div>
+      <div class="stat" role="listitem"><b>1M+</b><span>broadcast messages sent per day</span></div>
+      <div class="stat" role="listitem"><b>200→5 ms</b><span>voice API response time after Redis caching</span></div>
+      <div class="stat" role="listitem"><b>95→99%</b><span>webhook delivery success with retry consumers</span></div>
+    </div>
+
+    <section id="work">
+      <div class="sec-head">
+        <span class="label">Selected work</span>
+        <h2>Things I've built</h2>
+      </div>
+
+      <article class="feature">
+        <h3>Real-time voice streaming gateway for AI voice bots</h3>
+        <p>A WebSocket gateway that connects live Asterisk phone calls to AI voice bots. Caller audio streams to speech-to-text, the transcript goes to an LLM, and the reply streams back through text-to-speech to the caller, all while the call is live. It now handles <b>100K+ calls a day</b>, peaking at <b>200K</b>. I also helped integrate Groq for LLM inference and ElevenLabs for speech.</p>
+        <div class="diagram">
+          <svg viewBox="0 0 760 170" role="img" aria-label="Call audio flows from Asterisk to the WebSocket gateway, then to speech-to-text, the LLM and text-to-speech, and the reply audio streams back to the caller.">
+            <defs>
+              <marker id="a1" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path class="ah" d="M0,0 L10,5 L0,10 z"/></marker>
+              <marker id="a2" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path class="ah2" d="M0,0 L10,5 L0,10 z"/></marker>
+            </defs>
+            <rect class="box" x="10" y="40" width="110" height="56" rx="8"/>
+            <text x="65" y="64" text-anchor="middle">Caller</text>
+            <text class="sub" x="65" y="81" text-anchor="middle">Asterisk / IVR</text>
+
+            <rect class="box" x="170" y="40" width="130" height="56" rx="8"/>
+            <text x="235" y="64" text-anchor="middle">WS Gateway</text>
+            <text class="sub" x="235" y="81" text-anchor="middle">Node.js · sessions</text>
+
+            <rect class="box ai" x="350" y="40" width="110" height="56" rx="8"/>
+            <text x="405" y="64" text-anchor="middle">STT</text>
+            <text class="sub" x="405" y="81" text-anchor="middle">streaming</text>
+
+            <rect class="box ai" x="500" y="40" width="110" height="56" rx="8"/>
+            <text x="555" y="64" text-anchor="middle">LLM</text>
+            <text class="sub" x="555" y="81" text-anchor="middle">Groq</text>
+
+            <rect class="box ai" x="640" y="40" width="110" height="56" rx="8"/>
+            <text x="695" y="64" text-anchor="middle">TTS</text>
+            <text class="sub" x="695" y="81" text-anchor="middle">ElevenLabs</text>
+
+            <path class="flow" d="M120 68 H166" marker-end="url(#a1)"/>
+            <path class="flow" d="M300 68 H346" marker-end="url(#a1)"/>
+            <path class="flow" d="M460 68 H496" marker-end="url(#a1)"/>
+            <path class="flow" d="M610 68 H636" marker-end="url(#a1)"/>
+            <path class="back" d="M695 96 V140 H65 V100" marker-end="url(#a2)"/>
+            <text class="sub" x="380" y="158" text-anchor="middle">reply audio streams back to the caller while the bot is still generating</text>
+            <text class="sub" x="235" y="28" text-anchor="middle">100K+ calls/day · 200K peak</text>
+          </svg>
+        </div>
+        <div class="tags"><span>Node.js</span><span>WebSockets</span><span>Asterisk</span><span>Streaming STT</span><span>Groq</span><span>ElevenLabs</span></div>
+      </article>
+
+      <div class="grid">
+        <article class="card">
+          <span class="metric">1M+ messages/day · 1,000+ campaigns/month</span>
+          <h3>Voice &amp; SMS broadcast platform</h3>
+          <p>Designed and built four Node.js microservices covering campaign scheduling, bulk lead upload, credit-based billing and rate-limited dispatch through RabbitMQ.</p>
+          <div class="tags"><span>Microservices</span><span>RabbitMQ</span><span>MongoDB</span></div>
+        </article>
+        <article class="card">
+          <span class="metric">500K calls/day · 750K peak</span>
+          <h3>Programmable voice API</h3>
+          <p>REST APIs with JWT authentication, webhook callbacks and IVR analytics. Redis caching cut response time from about 200 ms to about 5 ms.</p>
+          <div class="tags"><span>Express.js</span><span>Redis</span><span>JWT</span><span>Webhooks</span></div>
+        </article>
+        <article class="card">
+          <span class="metric">~5M messages/day · 95% → 99% delivery</span>
+          <h3>Event-driven post-call pipeline</h3>
+          <p>Moved call flows onto a RabbitMQ topic exchange and built retry consumers that made webhook delivery far more reliable without ever blocking a live call.</p>
+          <div class="tags"><span>RabbitMQ</span><span>Retries</span><span>Event-driven</span></div>
+        </article>
+        <article class="card">
+          <span class="metric">Whisper · GPT-4o · sentiment</span>
+          <h3>AI call quality dashboards</h3>
+          <p>React dashboards showing call transcripts, AI summaries, sentiment and top and bottom performing agents, powered by MongoDB aggregation pipelines.</p>
+          <div class="tags"><span>React</span><span>OpenAI</span><span>Aggregations</span></div>
+        </article>
+        <article class="card">
+          <span class="metric">10+ clients</span>
+          <h3>CRM integrations</h3>
+          <p>Auto-sync of call logs, recordings and contacts into Zoho CRM, HubSpot, Zendesk and LeadSquared, saving agents hours of manual logging every day.</p>
+          <div class="tags"><span>OAuth 2.0</span><span>REST</span><span>Integrations</span></div>
+        </article>
+        <article class="card">
+          <span class="metric">$18K saved per year</span>
+          <h3>Cost optimisation at Doosra</h3>
+          <p>Replaced paid third-party services with in-house solutions, including the Google classifier used for SMS classification, saving $1,500 a month.</p>
+          <div class="tags"><span>Node.js</span><span>Cost</span></div>
+        </article>
+      </div>
+    </section>
+
+    <section id="experience">
+      <div class="sec-head">
+        <span class="label">Experience</span>
+        <h2>Where I've worked</h2>
+      </div>
+      <div class="timeline">
+        <div class="job">
+          <span class="when">Jul 2024 – Present</span>
+          <h3>Full Stack Developer <span class="where">· Matr Innovations (Alohaa)</span></h3>
+          <p>Core developer on Alohaa, a B2B cloud telephony SaaS used by 50+ businesses and 1,000+ agents. I work directly with clients on requirements and ship features end to end: React UI, Node.js/Express APIs and MongoDB schemas, deployed with Docker and Bitbucket CI/CD.</p>
+        </div>
+        <div class="job">
+          <span class="when">Apr 2022 – Jun 2024</span>
+          <h3>Full Stack Developer <span class="where">· Ten20 Infomedia (Doosra)</span></h3>
+          <p>Built features across the React frontend and Node.js backend of Doosra, a B2C cloud telephony app with 10K+ users, 20K+ calls and 40K+ messages a day.</p>
+          <ul>
+            <li>Analytics dashboards for calls, contacts and messages with optimised MongoDB aggregation pipelines.</li>
+            <li>Feature releases behind Unleash flags; billing, reports and cleanup automated with cron jobs.</li>
+          </ul>
+        </div>
+        <div class="job">
+          <span class="when">May 2018 – Nov 2018</span>
+          <h3>Intern &amp; Trainee, FAAS <span class="where">· Ernst &amp; Young (EY)</span></h3>
+          <p>Built the financial reporting module in DIGIFAAS, EY's in-house accounting platform, automating balance sheet and P&amp;L statement generation within the Financial Accounting Advisory Services practice.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="skills">
+      <div class="sec-head">
+        <span class="label">Toolbox</span>
+        <h2>Skills</h2>
+      </div>
+      <dl class="skills">
+        <dt>Frontend</dt><dd>React.js, Redux, React Hooks, Material UI, Socket.IO, WebRTC</dd>
+        <dt>Backend</dt><dd>Node.js, Express.js, REST APIs, microservices, JWT, OAuth 2.0, webhooks</dd>
+        <dt>Data &amp; messaging</dt><dd>MongoDB (aggregations, indexing, schema design), Redis, RabbitMQ, cron jobs</dd>
+        <dt>AI &amp; voice</dt><dd>OpenAI (GPT-4o, Whisper), Groq, ElevenLabs, STT/TTS, Asterisk, IVR, voice bots</dd>
+        <dt>Architecture</dt><dd>Event-driven systems, message queues, rate limiting, retry handling</dd>
+        <dt>Cloud &amp; DevOps</dt><dd>AWS S3, Docker, PM2, Bitbucket CI/CD, Unleash, Sentry, Git</dd>
+        <dt>Languages</dt><dd>JavaScript (ES6+), Python</dd>
+      </dl>
+    </section>
+
+    <section id="education">
+      <div class="sec-head">
+        <span class="label">Education</span>
+        <h2>Background</h2>
+      </div>
+      <div class="edu">
+        <article class="card">
+          <span class="metric">2014 – 2018 · CGPA 9.06 / 10</span>
+          <h3>B.Tech, Electronics &amp; Communication Engineering</h3>
+          <p>Indian Institute of Information Technology (IIIT) Sri City, an Institute of National Importance. Teaching Assistant for Mathematics, Basic Electronic Circuits and VLSI.</p>
+        </article>
+        <article class="card">
+          <span class="metric">Big Four</span>
+          <h3>Started my career at EY</h3>
+          <p>Six months in EY's Financial Accounting Advisory Services team building financial reporting software, where I first learned how enterprise clients expect software to be delivered.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="contact" id="contact">
+      <h2>Let's talk</h2>
+      <p>I'm open to full-stack and backend roles on high-scale, real-time or AI-driven products. The fastest way to reach me is email.</p>
+      <span class="mail">charitha.vempally@gmail.com</span>
+      <div class="cta">
+        <a class="btn primary" href="mailto:charitha.vempally@gmail.com">Email me</a>
+        <a class="btn ghost" href="Charitha_Ramireddy_Resume.pdf" target="_blank" rel="noopener">Download resume</a>
+        <!-- Add your LinkedIn / GitHub here once you have the links:
+        <a class="btn ghost" href="https://www.linkedin.com/in/YOUR-ID" target="_blank" rel="noopener">LinkedIn</a>
+        <a class="btn ghost" href="https://github.com/YOUR-ID" target="_blank" rel="noopener">GitHub</a>
+        -->
+      </div>
+    </section>
+  </div>
+</main>
+
+<footer>
+  <div class="wrap">© <span id="yr">2026</span> Charitha Ramireddy · Hyderabad, India</div>
+</footer>
+
+<script>
+  // Waveform bars in the hero
+  const wave = document.getElementById("wave");
+  const n = 90;
+  for (let i = 0; i < n; i++) {
+    const b = document.createElement("i");
+    const env = Math.sin(Math.PI * i / n);
+    const h = 12 + env * (20 + 30 * Math.abs(Math.sin(i * 0.7) * Math.cos(i * 0.23)));
+    b.style.setProperty("--h", h.toFixed(0) + "px");
+    b.style.setProperty("--d", (-(i % 17) * 0.09).toFixed(2) + "s");
+    wave.appendChild(b);
+  }
+  document.getElementById("yr").textContent = new Date().getFullYear();
+</script>
+</body>
+</html>
