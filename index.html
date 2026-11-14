@@ -1,357 +1,917 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" data-theme="ember">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Charitha Ramireddy · Full Stack Developer</title>
+<title>Charitha Ramireddy</title>
 <meta name="description" content="Full Stack Developer (MERN) building real-time voice and AI systems for cloud telephony. 1.1M+ calls a day on Alohaa.">
 <meta property="og:title" content="Charitha Ramireddy · Full Stack Developer">
 <meta property="og:description" content="MERN developer building real-time voice streaming, AI voice bots and event-driven pipelines at telephony scale.">
 <meta property="og:type" content="website">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%232447A0'/%3E%3Cg fill='white'%3E%3Crect x='7' y='13' width='3' height='6' rx='1.5'/%3E%3Crect x='12' y='9' width='3' height='14' rx='1.5'/%3E%3Crect x='17' y='6' width='3' height='20' rx='1.5'/%3E%3Crect x='22' y='11' width='3' height='10' rx='1.5'/%3E%3C/g%3E%3C/svg%3E">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='9' fill='%23FF7A45'/%3E%3Cg fill='%231A0E07'%3E%3Crect x='7' y='13' width='3' height='6' rx='1.5'/%3E%3Crect x='12' y='9' width='3' height='14' rx='1.5'/%3E%3Crect x='17' y='6' width='3' height='20' rx='1.5'/%3E%3Crect x='22' y='11' width='3' height='10' rx='1.5'/%3E%3C/g%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&family=Source+Sans+3:wght@400;600;700&family=JetBrains+Mono:wght@500;700&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500;600&display=swap">
+<script>
+  (function () {
+    var t = null;
+    try { t = localStorage.getItem("cr-theme"); } catch (e) {}
+    if (!t && window.matchMedia && matchMedia("(prefers-color-scheme: light)").matches) t = "paper";
+    document.documentElement.setAttribute("data-theme", t || "ember");
+  })();
+</script>
 <style>
-/* Layout: one reading column; hero with a live waveform, stat strip, case studies, timeline, contact */
-:root {
-  --bg: #F7F8FC;
-  --surface: #FFFFFF;
-  --fg: #12172A;
-  --muted: #586079;
-  --line: #DFE3EE;
-  --accent: #2447A0;
-  --accent-2: #E8EDFA;
-  --signal: #0E8A6A;
-  --display: "Bricolage Grotesque", "Helvetica Neue", Arial, sans-serif;
-  --body: "Source Sans 3", "Segoe UI", system-ui, sans-serif;
-  --mono: "JetBrains Mono", ui-monospace, Menlo, Consolas, monospace;
+/* ================= THEMES ================= */
+:root, [data-theme="ember"] {
+  --bg: #0D0C0B; --card: #161412; --card-2: #1D1A17; --line: #2B2723;
+  --fg: #E9E4DC; --strong: #FFF8EF; --muted: #A1988C; --faint: #6D665D;
+  --accent: #FF7A45; --accent-2: #FFC46B; --ink: #1A0E07;
+  color-scheme: dark;
 }
-@media (prefers-color-scheme: dark) {
-  :root { --bg: #0C1020; --surface: #141A2E; --fg: #E7EAF4; --muted: #9AA3BC; --line: #262E48;
-          --accent: #8FA8F5; --accent-2: #1B2546; --signal: #5FD3AE; color-scheme: dark; }
+[data-theme="midnight"] {
+  --bg: #090D1A; --card: #10162B; --card-2: #151C36; --line: #222B4A;
+  --fg: #E1E6F5; --strong: #FFFFFF; --muted: #8E97B9; --faint: #5C6587;
+  --accent: #A594FF; --accent-2: #5EE6C0; --ink: #0B0820;
+  color-scheme: dark;
 }
+[data-theme="forest"] {
+  --bg: #09100D; --card: #101915; --card-2: #15211B; --line: #1F2E27;
+  --fg: #E0ECE5; --strong: #F5FFF9; --muted: #8DA598; --faint: #5B7066;
+  --accent: #B7F36B; --accent-2: #4FD1A5; --ink: #0B1406;
+  color-scheme: dark;
+}
+[data-theme="paper"] {
+  --bg: #F6F2EA; --card: #FFFFFF; --card-2: #FBF8F3; --line: #E5DCCD;
+  --fg: #3A342C; --strong: #15120E; --muted: #6E665A; --faint: #A1978A;
+  --accent: #D9480F; --accent-2: #2B59C3; --ink: #FFFFFF;
+  color-scheme: light;
+}
+
+/* ================= BASE ================= */
 * { box-sizing: border-box; }
-html { scroll-behavior: smooth; }
-body { margin: 0; background: var(--bg); color: var(--fg); font-family: var(--body); font-size: 17px; line-height: 1.6; }
-a { color: var(--accent); }
-.wrap { max-width: 980px; margin: 0 auto; padding-left: max(20px, env(safe-area-inset-left)); padding-right: max(20px, env(safe-area-inset-right)); }
-:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 4px; }
+html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+body {
+  margin: 0; background: var(--bg); color: var(--fg); overflow-x: clip;
+  font-family: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
+  font-size: 16px; line-height: 1.6; -webkit-font-smoothing: antialiased;
+  transition: background-color .4s, color .4s;
+}
+::selection { background: var(--accent); color: var(--ink); }
+a { color: inherit; text-decoration: none; }
+b, strong { color: var(--strong); font-weight: 600; }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 6px; }
+.serif { font-family: "Instrument Serif", Georgia, serif; font-style: italic; font-weight: 400; letter-spacing: -0.01em; }
+.mono { font-family: "JetBrains Mono", ui-monospace, Menlo, monospace; }
+.wrap { max-width: 1160px; margin: 0 auto; padding: 0 max(16px, env(safe-area-inset-left)); }
+@media (min-width: 768px) { .wrap { padding: 0 32px; } }
 
-/* nav */
-nav { position: sticky; top: 0; z-index: 10; background: color-mix(in srgb, var(--bg) 88%, transparent); backdrop-filter: blur(8px); border-bottom: 1px solid var(--line); }
-nav .wrap { display: flex; justify-content: space-between; align-items: center; gap: 16px; padding-block: 12px; }
-.logo { font-family: var(--display); font-weight: 800; font-size: 18px; color: var(--fg); text-decoration: none; }
-nav ul { list-style: none; display: flex; gap: 22px; margin: 0; padding: 0; font-size: 15px; font-weight: 600; }
-nav ul a { color: var(--muted); text-decoration: none; }
-nav ul a:hover { color: var(--fg); }
-@media (max-width: 640px) { nav ul { display: none; } }
+/* background texture: soft glow + dotted grid */
+.bg-fx { position: fixed; inset: 0; z-index: -1; pointer-events: none; }
+.bg-fx::before {
+  content: ""; position: absolute; inset: 0;
+  background-image: radial-gradient(color-mix(in srgb, var(--fg) 9%, transparent) 1px, transparent 1px);
+  background-size: 28px 28px;
+  mask-image: radial-gradient(ellipse 80% 60% at 50% 0%, #000 30%, transparent 75%);
+  -webkit-mask-image: radial-gradient(ellipse 80% 60% at 50% 0%, #000 30%, transparent 75%);
+}
+.bg-fx::after {
+  content: ""; position: absolute; width: 900px; height: 600px; left: 50%; top: -260px; transform: translateX(-50%);
+  background: radial-gradient(closest-side, color-mix(in srgb, var(--accent) 22%, transparent), transparent);
+  filter: blur(20px); opacity: .7;
+}
 
-/* hero */
-.hero { padding-block: 72px 40px; display: grid; gap: 22px; }
-.kicker { font-family: var(--mono); font-size: 13px; letter-spacing: .06em; text-transform: uppercase; color: var(--signal); display: flex; align-items: center; gap: 10px; }
-.kicker::before { content: ""; width: 8px; height: 8px; border-radius: 50%; background: var(--signal); box-shadow: 0 0 0 4px color-mix(in srgb, var(--signal) 25%, transparent); }
-h1 { font-family: var(--display); font-weight: 800; font-size: clamp(38px, 7vw, 68px); line-height: 1.02; letter-spacing: -.02em; margin: 0; text-wrap: balance; }
-h1 em { font-style: normal; color: var(--accent); }
-.hero p { margin: 0; max-width: 62ch; font-size: 19px; color: var(--muted); }
-.cta { display: flex; gap: 12px; flex-wrap: wrap; }
-.btn { display: inline-flex; align-items: center; gap: 8px; font-weight: 700; font-size: 16px; padding: 11px 18px; border-radius: 8px; text-decoration: none; border: 1.5px solid var(--accent); }
-.btn.primary { background: var(--accent); color: var(--bg); }
-.btn.ghost { color: var(--accent); }
-.wave { height: 64px; display: flex; align-items: center; gap: 3px; margin-top: 8px; overflow: hidden; }
-.wave i { flex: 1 1 2px; max-width: 5px; border-radius: 3px; background: var(--accent); opacity: .85; height: var(--h); animation: pulse 1.6s ease-in-out infinite; animation-delay: var(--d); transform-origin: center; }
-@keyframes pulse { 0%,100% { transform: scaleY(.35); } 50% { transform: scaleY(1); } }
-@media (prefers-reduced-motion: reduce) { .wave i { animation: none; transform: scaleY(.7); } html { scroll-behavior: auto; } }
+/* ================= NAV ================= */
+.top {
+  position: sticky; top: 0; z-index: 40;
+  background: color-mix(in srgb, var(--bg) 75%, transparent);
+  backdrop-filter: blur(14px) saturate(140%); -webkit-backdrop-filter: blur(14px) saturate(140%);
+  border-bottom: 1px solid transparent; transition: border-color .3s;
+}
+.top.scrolled { border-bottom-color: var(--line); }
+.top .wrap { display: flex; align-items: center; gap: 16px; height: 64px; }
+.logo { display: flex; align-items: center; gap: 10px; font-weight: 700; color: var(--strong); letter-spacing: -.01em; }
+.logo .mark {
+  width: 32px; height: 32px; border-radius: 9px; display: grid; place-items: center;
+  background: var(--accent); color: var(--ink); font-size: 13px; font-weight: 800; letter-spacing: -.03em;
+}
+.logo .nm { display: none; }
+@media (min-width: 480px) { .logo .nm { display: inline; } }
+.links { display: none; margin-left: auto; gap: 4px; }
+@media (min-width: 900px) { .links { display: flex; } }
+.links a { font-size: 14px; font-weight: 500; color: var(--muted); padding: 6px 12px; border-radius: 8px; transition: color .2s, background .2s; }
+.links a:hover, .links a.active { color: var(--strong); background: color-mix(in srgb, var(--fg) 7%, transparent); }
+.tools { margin-left: auto; display: flex; align-items: center; gap: 12px; }
+@media (min-width: 900px) { .tools { margin-left: 8px; } }
+.swatches { display: flex; gap: 6px; padding: 5px; border: 1px solid var(--line); border-radius: 99px; background: var(--card); }
+.swatches button {
+  width: 18px; height: 18px; border-radius: 50%; border: 0; padding: 0; cursor: pointer;
+  background: linear-gradient(135deg, var(--a) 50%, var(--b) 50%);
+  box-shadow: 0 0 0 1px color-mix(in srgb, var(--fg) 20%, transparent); transition: transform .2s, box-shadow .2s;
+}
+.swatches button:hover { transform: scale(1.15); }
+.swatches button[aria-pressed="true"] { box-shadow: 0 0 0 2px var(--bg), 0 0 0 3.5px var(--accent); }
+.btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+  font-size: 14.5px; font-weight: 600; line-height: 1; padding: 12px 18px; border-radius: 10px;
+  border: 1px solid var(--line); background: var(--card); color: var(--strong); cursor: pointer;
+  transition: transform .2s, background .2s, border-color .2s, box-shadow .2s; font-family: inherit;
+}
+.btn:hover { transform: translateY(-2px); border-color: color-mix(in srgb, var(--accent) 50%, var(--line)); }
+.btn.primary { background: var(--accent); border-color: var(--accent); color: var(--ink); box-shadow: 0 8px 30px -10px color-mix(in srgb, var(--accent) 70%, transparent); }
+.btn.primary:hover { box-shadow: 0 12px 36px -10px color-mix(in srgb, var(--accent) 90%, transparent); }
+.btn.sm { padding: 9px 14px; font-size: 13.5px; border-radius: 9px; }
+.btn svg { width: 16px; height: 16px; flex: none; }
+.top .btn.sm { display: none; }
+@media (min-width: 600px) { .top .btn.sm { display: inline-flex; } }
+
+/* ================= HERO ================= */
+.hero { padding: 56px 0 40px; display: grid; gap: 48px; align-items: center; }
+@media (min-width: 980px) { .hero { grid-template-columns: 1.08fr .92fr; padding: 88px 0 64px; gap: 56px; } }
+.hero > * { min-width: 0; }
+.pill {
+  display: inline-flex; align-items: center; gap: 9px; font-size: 13px; font-weight: 500; color: var(--fg);
+  padding: 6px 14px 6px 10px; border-radius: 99px; border: 1px solid var(--line); background: var(--card);
+}
+.dot { width: 8px; height: 8px; border-radius: 50%; background: #3DDC97; position: relative; flex: none; }
+.dot::after { content: ""; position: absolute; inset: 0; border-radius: 50%; background: inherit; animation: ping 1.8s cubic-bezier(0,0,.2,1) infinite; }
+@keyframes ping { 75%, 100% { transform: scale(2.6); opacity: 0; } }
+h1 {
+  margin: 22px 0 0; color: var(--strong); font-weight: 700;
+  font-size: clamp(38px, 6.2vw, 66px); line-height: 1.02; letter-spacing: -0.035em; text-wrap: balance;
+}
+h1 .serif { font-size: 1.08em; color: var(--accent); }
+h1 .hl { background: linear-gradient(90deg, var(--accent), var(--accent-2)); -webkit-background-clip: text; background-clip: text; color: transparent; }
+.lede { margin: 22px 0 0; max-width: 54ch; font-size: clamp(16.5px, 1.6vw, 18px); color: var(--muted); }
+.lede b { color: var(--fg); }
+.hero .cta { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 30px; }
+.meta { display: flex; flex-wrap: wrap; gap: 8px 20px; margin-top: 28px; font-size: 13.5px; color: var(--muted); }
+.meta span { display: inline-flex; align-items: center; gap: 7px; }
+.meta svg { width: 15px; height: 15px; color: var(--faint); }
+
+/* live call console */
+.console {
+  position: relative; border: 1px solid var(--line); border-radius: 18px; background: var(--card);
+  box-shadow: 0 30px 80px -30px rgba(0,0,0,.45), 0 0 0 1px color-mix(in srgb, var(--accent) 6%, transparent);
+  overflow: hidden;
+}
+.console::before {
+  content: ""; position: absolute; inset: 0 0 auto; height: 1px;
+  background: linear-gradient(90deg, transparent, var(--accent), var(--accent-2), transparent);
+}
+.c-head { display: flex; align-items: center; gap: 10px; padding: 14px 18px; border-bottom: 1px solid var(--line); font-size: 13px; }
+.c-head .t { font-weight: 600; color: var(--strong); }
+.c-head .tag { margin-left: auto; font-size: 11px; color: var(--faint); border: 1px solid var(--line); padding: 2px 8px; border-radius: 99px; }
+.c-timer { color: var(--muted); font-size: 12px; }
+.c-wave { display: flex; align-items: center; gap: 3px; height: 54px; padding: 0 18px; border-bottom: 1px solid var(--line); background: var(--card-2); }
+.c-wave i { flex: 1; min-width: 2px; max-width: 4px; border-radius: 3px; height: 6px; background: var(--faint); transition: height .12s ease, background .3s; }
+.c-wave.talk-caller i { background: var(--accent-2); }
+.c-wave.talk-bot i { background: var(--accent); }
+.c-pipe { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; padding: 14px 18px; border-bottom: 1px solid var(--line); }
+.stage {
+  border: 1px solid var(--line); border-radius: 10px; padding: 8px 10px; font-size: 11.5px; color: var(--faint);
+  transition: border-color .25s, color .25s, background .25s; min-width: 0;
+}
+.stage b { display: block; font-size: 12.5px; color: var(--muted); font-weight: 600; transition: color .25s; }
+.stage .ms { font-family: "JetBrains Mono", monospace; }
+.stage.on { border-color: var(--accent); background: color-mix(in srgb, var(--accent) 10%, transparent); color: var(--fg); }
+.stage.on b { color: var(--strong); }
+.c-log { height: 216px; padding: 14px 18px; display: flex; flex-direction: column; justify-content: flex-end; gap: 10px; overflow: hidden; font-size: 14px; }
+.msg { display: flex; gap: 10px; align-items: flex-start; animation: rise .35s ease both; }
+@keyframes rise { from { opacity: 0; transform: translateY(8px); } }
+.msg .who { flex: none; font-family: "JetBrains Mono", monospace; font-size: 10.5px; font-weight: 600; text-transform: uppercase; letter-spacing: .06em; padding: 3px 7px; border-radius: 6px; margin-top: 1px; }
+.msg.caller .who { background: color-mix(in srgb, var(--accent-2) 16%, transparent); color: var(--accent-2); }
+.msg.bot .who { background: color-mix(in srgb, var(--accent) 16%, transparent); color: var(--accent); }
+.msg p { margin: 0; color: var(--fg); }
+.msg.thinking p { color: var(--faint); }
+.caret { display: inline-block; width: 7px; height: 1em; vertical-align: -2px; background: var(--accent); margin-left: 2px; animation: blink 1s steps(1) infinite; }
+@keyframes blink { 50% { opacity: 0; } }
+.c-foot { display: flex; justify-content: space-between; gap: 12px; padding: 11px 18px; border-top: 1px solid var(--line); font-size: 11.5px; color: var(--faint); background: var(--card-2); }
+
+/* ================= MARQUEE ================= */
+.marquee { border-block: 1px solid var(--line); overflow: hidden; padding: 16px 0; margin-top: 16px; mask-image: linear-gradient(90deg, transparent, #000 10%, #000 90%, transparent); -webkit-mask-image: linear-gradient(90deg, transparent, #000 10%, #000 90%, transparent); }
+.track { display: flex; width: max-content; animation: scroll 40s linear infinite; }
+.marquee:hover .track { animation-play-state: paused; }
+.track span { display: inline-flex; align-items: center; gap: 28px; padding-right: 28px; font-size: 15px; font-weight: 500; color: var(--muted); white-space: nowrap; }
+.track span::after { content: "✦"; color: var(--accent); font-size: 11px; }
+@keyframes scroll { to { transform: translateX(-50%); } }
+
+/* ================= SECTIONS ================= */
+section { padding: 88px 0 0; scroll-margin-top: 64px; }
+@media (min-width: 980px) { section { padding-top: 120px; } }
+.eyebrow { display: inline-flex; align-items: center; gap: 10px; font-family: "JetBrains Mono", monospace; font-size: 12.5px; font-weight: 500; color: var(--accent); letter-spacing: .04em; }
+.eyebrow::before { content: ""; width: 22px; height: 1px; background: currentColor; }
+h2 { margin: 14px 0 0; color: var(--strong); font-size: clamp(30px, 4.4vw, 46px); font-weight: 700; line-height: 1.08; letter-spacing: -.03em; text-wrap: balance; }
+h2 .serif { color: var(--accent); font-size: 1.08em; }
+.sub { margin: 14px 0 0; max-width: 60ch; color: var(--muted); font-size: 17px; }
+.head { margin-bottom: 40px; }
 
 /* stats */
-.stats { display: grid; grid-template-columns: repeat(4, 1fr); border: 1px solid var(--line); border-radius: 12px; background: var(--surface); margin-block: 8px 24px; }
-.stat { padding: 20px 22px; display: grid; gap: 4px; border-left: 1px solid var(--line); }
-.stat:first-child { border-left: 0; }
-.stat b { font-family: var(--mono); font-size: 26px; font-weight: 700; color: var(--accent); font-variant-numeric: tabular-nums; line-height: 1.2; }
-.stat span { font-size: 14.5px; color: var(--muted); line-height: 1.4; }
-@media (max-width: 760px) {
-  .stats { grid-template-columns: 1fr 1fr; }
-  .stat:nth-child(3) { border-left: 0; }
-  .stat:nth-child(n+3) { border-top: 1px solid var(--line); }
+.stats { display: grid; grid-template-columns: repeat(2, 1fr); border: 1px solid var(--line); border-radius: 18px; background: var(--card); overflow: hidden; }
+@media (min-width: 760px) { .stats { grid-template-columns: repeat(3, 1fr); } }
+@media (min-width: 1080px) { .stats { grid-template-columns: repeat(6, 1fr); } }
+.stat { padding: 24px 20px; border-right: 1px solid var(--line); border-bottom: 1px solid var(--line); margin: 0 -1px -1px 0; }
+.stat .n { display: block; font-size: clamp(28px, 3.2vw, 34px); font-weight: 700; color: var(--strong); letter-spacing: -.03em; line-height: 1.1; font-variant-numeric: tabular-nums; }
+.stat .n em { font-style: normal; color: var(--accent); }
+.stat .l { display: block; margin-top: 6px; font-size: 13.5px; color: var(--muted); line-height: 1.4; }
+
+/* what I do */
+.do { display: grid; gap: 16px; }
+@media (min-width: 860px) { .do { grid-template-columns: repeat(3, 1fr); } }
+.do article { border: 1px solid var(--line); background: var(--card); border-radius: 18px; padding: 26px; transition: transform .3s, border-color .3s; }
+.do article:hover { transform: translateY(-4px); border-color: color-mix(in srgb, var(--accent) 45%, var(--line)); }
+.ico { width: 44px; height: 44px; border-radius: 12px; display: grid; place-items: center; background: color-mix(in srgb, var(--accent) 14%, transparent); color: var(--accent); }
+.ico svg { width: 22px; height: 22px; }
+.do h3 { margin: 18px 0 0; font-size: 19px; color: var(--strong); letter-spacing: -.015em; }
+.do p { margin: 8px 0 0; color: var(--muted); font-size: 15px; }
+
+/* bento projects */
+.bento { display: grid; gap: 16px; }
+@media (min-width: 760px) { .bento { grid-template-columns: repeat(2, 1fr); } }
+@media (min-width: 1080px) { .bento { grid-template-columns: repeat(3, 1fr); } }
+.tile {
+  position: relative; border: 1px solid var(--line); background: var(--card); border-radius: 20px; padding: 26px;
+  display: flex; flex-direction: column; gap: 12px; overflow: hidden; min-width: 0;
+  transition: border-color .3s, transform .3s, opacity .7s cubic-bezier(.2,.8,.2,1);
 }
+.tile:hover { border-color: color-mix(in srgb, var(--accent) 45%, var(--line)); transform: translateY(-3px); }
+.tile::after {
+  content: ""; position: absolute; inset: 0; pointer-events: none; opacity: 0; transition: opacity .3s;
+  background: radial-gradient(400px circle at var(--x, 50%) var(--y, 0%), color-mix(in srgb, var(--accent) 10%, transparent), transparent 60%);
+}
+.tile:hover::after { opacity: 1; }
+.tile.big { grid-column: 1 / -1; }
+@media (min-width: 1080px) { .tile.big { grid-column: span 2; grid-row: span 2; } .tile.wide { grid-column: span 2; } }
+.tile .k { display: flex; justify-content: space-between; align-items: center; gap: 10px; font-size: 12px; color: var(--faint); font-family: "JetBrains Mono", monospace; }
+.tile .k .co { color: var(--muted); }
+.tile h3 { margin: 0; font-size: 20px; color: var(--strong); letter-spacing: -.02em; line-height: 1.25; }
+.tile.big h3 { font-size: clamp(22px, 2.4vw, 28px); }
+.tile p { margin: 0; color: var(--muted); font-size: 15px; }
+.tile .num { font-size: 38px; font-weight: 700; letter-spacing: -.04em; color: var(--strong); line-height: 1; }
+.tile .num small { font-size: 15px; font-weight: 500; color: var(--muted); letter-spacing: 0; margin-left: 6px; }
+.tags { display: flex; flex-wrap: wrap; gap: 6px; margin: auto 0 0; padding: 4px 0 0; list-style: none; }
+.tags li { font-size: 12px; font-weight: 500; padding: 5px 10px; border-radius: 99px; border: 1px solid var(--line); color: var(--muted); background: var(--card-2); }
 
-/* sections */
-section { padding-block: 56px 8px; }
-.sec-head { display: grid; gap: 6px; margin-bottom: 26px; }
-.sec-head .label { font-family: var(--mono); font-size: 12.5px; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); }
-h2 { font-family: var(--display); font-weight: 800; font-size: clamp(28px, 4vw, 38px); line-height: 1.1; margin: 0; letter-spacing: -.01em; }
-h3 { font-family: var(--display); font-weight: 600; font-size: 22px; line-height: 1.25; margin: 0; }
+/* project visuals */
+.viz { margin: 4px 0; }
+.bar-cmp { display: grid; gap: 10px; font-size: 12px; font-family: "JetBrains Mono", monospace; color: var(--muted); }
+.bar-cmp div { display: grid; grid-template-columns: 70px 1fr 52px; align-items: center; gap: 10px; }
+.bar-cmp i { display: block; height: 10px; border-radius: 99px; background: var(--faint); width: var(--w); transition: width 1.2s cubic-bezier(.2,.8,.2,1) .2s; }
+.bar-cmp .after i { background: linear-gradient(90deg, var(--accent), var(--accent-2)); min-width: 8px; }
+.bar-cmp b { color: var(--strong); text-align: right; }
+.tile:not(.in) .bar-cmp i { width: 0; }
+.ring { display: flex; align-items: center; gap: 18px; }
+.ring svg { width: 84px; height: 84px; transform: rotate(-90deg); flex: none; }
+.ring circle { fill: none; stroke-width: 9; }
+.ring .bgc { stroke: var(--line); }
+.ring .fgc { stroke: var(--accent); stroke-linecap: round; stroke-dasharray: 226; stroke-dashoffset: 226; transition: stroke-dashoffset 1.6s cubic-bezier(.2,.8,.2,1) .2s; }
+.tile.in .ring .fgc { stroke-dashoffset: 2.3; }
+.ring span { font-size: 13px; color: var(--muted); }
+.ring span b { display: block; font-size: 26px; letter-spacing: -.03em; }
+.sent { display: grid; gap: 8px; }
+.sent div { display: grid; grid-template-columns: 64px 1fr; align-items: center; gap: 10px; font-size: 12px; color: var(--muted); }
+.sent i { display: block; height: 8px; border-radius: 99px; width: var(--w); transition: width 1.2s cubic-bezier(.2,.8,.2,1) .2s; }
+.tile:not(.in) .sent i { width: 0; }
+.chips { display: flex; flex-wrap: wrap; gap: 8px; }
+.chips span { font-size: 13px; font-weight: 600; color: var(--strong); padding: 8px 12px; border-radius: 10px; border: 1px solid var(--line); background: var(--card-2); }
+.flowmini { display: flex; align-items: center; gap: 6px; flex-wrap: wrap; font-size: 12px; font-family: "JetBrains Mono", monospace; }
+.flowmini span { padding: 6px 9px; border: 1px solid var(--line); border-radius: 8px; color: var(--fg); background: var(--card-2); }
+.flowmini em { font-style: normal; color: var(--accent); }
 
-/* feature case study */
-.feature { background: var(--surface); border: 1px solid var(--line); border-radius: 14px; padding: 28px; display: grid; gap: 18px; }
-.feature p { margin: 0; max-width: 70ch; }
-.hero > *, .feature > * { min-width: 0; }
-.diagram { overflow-x: auto; }
-.diagram svg { display: block; min-width: 640px; width: 100%; height: auto; }
-.diagram text { font-family: var(--mono); font-size: 12px; fill: var(--fg); }
-.diagram .sub { fill: var(--muted); font-size: 10.5px; }
-.diagram .box { fill: var(--accent-2); stroke: var(--accent); stroke-width: 1.2; }
-.diagram .box.ai { fill: var(--surface); stroke: var(--signal); }
-.diagram .flow { stroke: var(--accent); stroke-width: 1.5; fill: none; }
-.diagram .back { stroke: var(--signal); stroke-width: 1.5; fill: none; stroke-dasharray: 5 4; }
-.diagram .ah { fill: var(--accent); }
-.diagram .ah2 { fill: var(--signal); }
-.tags { display: flex; flex-wrap: wrap; gap: 6px; }
-.tags span { font-family: var(--mono); font-size: 12px; padding: 3px 8px; border-radius: 5px; background: var(--accent-2); color: var(--accent); }
+/* gateway diagram */
+.diagram { margin: 6px 0; overflow-x: auto; -webkit-overflow-scrolling: touch; padding-bottom: 4px; }
+.diagram svg { display: block; width: 100%; min-width: 480px; height: auto; }
+.diagram text { font-family: "JetBrains Mono", monospace; font-size: 12px; fill: var(--strong); }
+.diagram .s { fill: var(--muted); font-size: 10px; }
+.diagram .bx { fill: var(--card-2); stroke: var(--line); stroke-width: 1.2; }
+.diagram .bx.ai { stroke: var(--accent); fill: color-mix(in srgb, var(--accent) 8%, var(--card-2)); }
+.diagram .fl { stroke: var(--accent); stroke-width: 1.5; fill: none; stroke-dasharray: 4 5; animation: dash .9s linear infinite; }
+.diagram .bk { stroke: var(--accent-2); stroke-width: 1.5; fill: none; stroke-dasharray: 4 5; animation: dash .9s linear infinite; }
+.diagram .ah { fill: var(--accent); } .diagram .ah2 { fill: var(--accent-2); }
+@keyframes dash { to { stroke-dashoffset: -9; } }
+.big-stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-top: 4px; }
+.big-stats div { border: 1px solid var(--line); border-radius: 12px; padding: 12px 14px; background: var(--card-2); min-width: 0; }
+.big-stats b { display: block; font-size: 22px; letter-spacing: -.03em; }
+.big-stats span { font-size: 12px; color: var(--muted); }
 
-.grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; margin-top: 16px; }
-@media (max-width: 760px) { .grid { grid-template-columns: 1fr; } }
-.card { background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 22px; display: grid; gap: 10px; align-content: start; min-width: 0; }
-.card p { margin: 0; color: var(--muted); font-size: 16px; }
-.card .metric { font-family: var(--mono); font-size: 13.5px; font-weight: 700; color: var(--signal); }
+/* ================= EXPERIENCE ================= */
+.timeline { position: relative; display: grid; gap: 20px; }
+@media (min-width: 860px) {
+  .timeline::before { content: ""; position: absolute; left: 219px; top: 10px; bottom: 10px; width: 1px; background: linear-gradient(var(--accent), var(--line) 40%, var(--line)); }
+}
+.job { display: grid; gap: 14px; }
+@media (min-width: 860px) { .job { grid-template-columns: 200px 1fr; gap: 40px; } }
+.job .when { font-family: "JetBrains Mono", monospace; font-size: 13px; color: var(--muted); padding-top: 26px; position: relative; }
+.job .when b { display: block; color: var(--strong); font-family: "Inter", sans-serif; font-size: 15px; margin-bottom: 2px; }
+@media (min-width: 860px) {
+  .job .when::after { content: ""; position: absolute; right: -26px; top: 30px; width: 11px; height: 11px; border-radius: 50%; background: var(--bg); border: 2px solid var(--accent); }
+  .job.now .when::after { background: var(--accent); box-shadow: 0 0 0 5px color-mix(in srgb, var(--accent) 20%, transparent); }
+}
+@media (max-width: 859px) { .job .when { padding-top: 0; } }
+.job .card { border: 1px solid var(--line); background: var(--card); border-radius: 18px; padding: 24px 26px; transition: border-color .3s; }
+.job .card:hover { border-color: color-mix(in srgb, var(--accent) 45%, var(--line)); }
+.job h3 { margin: 0; font-size: 19px; color: var(--strong); letter-spacing: -.015em; }
+.job h3 a:hover { color: var(--accent); }
+.job .prod { display: block; margin-top: 4px; font-size: 14px; color: var(--accent); font-weight: 500; }
+.job .card > p { margin: 10px 0 0; color: var(--muted); font-size: 15px; }
+.job ul.pts { margin: 14px 0 0; padding: 0; list-style: none; display: grid; gap: 10px; }
+.job ul.pts li { position: relative; padding-left: 22px; font-size: 15px; color: var(--muted); }
+.job ul.pts li::before { content: ""; position: absolute; left: 2px; top: 9px; width: 7px; height: 7px; border-radius: 2px; background: color-mix(in srgb, var(--accent) 75%, transparent); transform: rotate(45deg); }
+.job .tags { margin-top: 18px; }
 
-/* timeline */
-.timeline { display: grid; gap: 0; border-left: 2px solid var(--line); margin-left: 6px; }
-.job { position: relative; padding: 0 0 30px 26px; display: grid; gap: 6px; }
-.job::before { content: ""; position: absolute; left: -8px; top: 7px; width: 14px; height: 14px; border-radius: 50%; background: var(--bg); border: 3px solid var(--accent); }
-.job .when { font-family: var(--mono); font-size: 13px; color: var(--muted); }
-.job .where { color: var(--muted); font-weight: 600; }
-.job p { margin: 0; max-width: 68ch; }
-.job ul { margin: 4px 0 0; padding-left: 20px; display: grid; gap: 4px; max-width: 70ch; }
+/* ================= SKILLS ================= */
+.skills { display: grid; gap: 14px; }
+@media (min-width: 760px) { .skills { grid-template-columns: repeat(2, 1fr); } }
+@media (min-width: 1080px) { .skills { grid-template-columns: repeat(3, 1fr); } }
+.sk { border: 1px solid var(--line); background: var(--card); border-radius: 16px; padding: 20px 22px; }
+.sk h3 { margin: 0 0 12px; font-size: 14px; color: var(--strong); display: flex; align-items: center; gap: 8px; }
+.sk h3::before { content: ""; width: 6px; height: 6px; border-radius: 50%; background: var(--accent); }
+.sk .tags { margin: 0; }
+.sk .tags li { color: var(--fg); }
 
-/* skills */
-.skills { display: grid; grid-template-columns: 180px 1fr; gap: 12px 24px; }
-.skills dt { font-weight: 700; }
-.skills dd { margin: 0; color: var(--muted); }
-@media (max-width: 600px) { .skills { grid-template-columns: 1fr; gap: 2px; } .skills dd { margin-bottom: 10px; } }
+/* ================= EDUCATION ================= */
+.edu { display: grid; gap: 16px; }
+@media (min-width: 860px) { .edu { grid-template-columns: 1.4fr 1fr 1fr; } }
+.edu article { border: 1px solid var(--line); background: var(--card); border-radius: 18px; padding: 24px; }
+.edu .badge { display: inline-block; font-family: "JetBrains Mono", monospace; font-size: 12px; color: var(--accent); border: 1px solid color-mix(in srgb, var(--accent) 35%, transparent); padding: 3px 9px; border-radius: 99px; }
+.edu h3 { margin: 14px 0 0; font-size: 18px; color: var(--strong); letter-spacing: -.015em; line-height: 1.3; }
+.edu p { margin: 8px 0 0; color: var(--muted); font-size: 14.5px; }
+.edu .gpa { font-size: 44px; font-weight: 700; letter-spacing: -.04em; color: var(--strong); line-height: 1; margin-top: 14px; }
+.edu .gpa small { font-size: 16px; color: var(--muted); font-weight: 500; letter-spacing: 0; }
 
-/* education */
-.edu { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
-@media (max-width: 760px) { .edu { grid-template-columns: 1fr; } }
+/* ================= CONTACT ================= */
+.contact {
+  position: relative; overflow: hidden; border-radius: 28px; padding: 56px 20px; text-align: center;
+  border: 1px solid var(--line); background: var(--card);
+}
+@media (min-width: 760px) { .contact { padding: 80px 48px; } }
+.contact::before {
+  content: ""; position: absolute; inset: auto -20% -60% -20%; height: 120%;
+  background: radial-gradient(closest-side, color-mix(in srgb, var(--accent) 28%, transparent), transparent);
+  pointer-events: none;
+}
+.contact > * { position: relative; }
+.contact h2 { font-size: clamp(34px, 6vw, 64px); margin: 14px auto 0; max-width: 16ch; }
+.contact .sub { margin: 18px auto 0; }
+.contact .cta { display: flex; flex-wrap: wrap; justify-content: center; gap: 12px; margin-top: 32px; }
+.copy { font-family: "JetBrains Mono", monospace; font-size: 13.5px; max-width: 100%; }
+.copy .lbl { overflow: hidden; text-overflow: ellipsis; }
+.copy .ok { display: none; color: var(--accent); }
+.copy.done .ok { display: inline; } .copy.done .lbl { display: none; }
 
-/* contact */
-.contact { margin-block: 56px 40px; background: var(--accent); color: var(--bg); border-radius: 16px; padding: 40px 32px; display: grid; gap: 14px; }
-.contact h2 { color: var(--bg); }
-.contact p { margin: 0; max-width: 60ch; opacity: .9; }
-.contact .btn { border-color: var(--bg); }
-.contact .btn.primary { background: var(--bg); color: var(--accent); }
-.contact .btn.ghost { color: var(--bg); }
-.mail { font-family: var(--mono); font-size: 15px; user-select: all; }
-footer { padding-block: 0 40px; color: var(--muted); font-size: 14px; }
+footer { padding: 48px 0 40px; }
+footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 16px; font-size: 13.5px; color: var(--faint); }
+footer nav { display: flex; gap: 18px; }
+footer a:hover { color: var(--accent); }
+
+/* reveal */
+.rv { opacity: 0; transform: translateY(18px); transition: opacity .7s cubic-bezier(.2,.8,.2,1), transform .7s cubic-bezier(.2,.8,.2,1), border-color .3s; transition-delay: var(--dl, 0s); }
+.rv.in { opacity: 1; transform: none; }
+.rv.in:hover { transition-delay: 0s; }
+.tile.rv.in:hover { transform: translateY(-3px); }
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .rv { opacity: 1; transform: none; transition: none; }
+  .track, .diagram .fl, .diagram .bk, .dot::after, .caret { animation: none; }
+}
 </style>
 </head>
 <body>
+<div class="bg-fx" aria-hidden="true"></div>
 
-<nav>
+<!-- ================= NAV ================= -->
+<header class="top" id="top">
   <div class="wrap">
-    <a class="logo" href="#top">Charitha Ramireddy</a>
-    <ul>
-      <li><a href="#work">Work</a></li>
-      <li><a href="#experience">Experience</a></li>
-      <li><a href="#skills">Skills</a></li>
-      <li><a href="#contact">Contact</a></li>
-    </ul>
-  </div>
-</nav>
-
-<main id="top">
-  <div class="wrap">
-    <header class="hero">
-      <div class="kicker">Full Stack Developer · Hyderabad</div>
-      <h1>I build the systems behind <em>real-time voice and AI</em> calls.</h1>
-      <p>MERN developer with about five years on cloud telephony products. At Alohaa I built the WebSocket gateway that lets AI voice bots talk to callers live, plus the microservices and pipelines behind 1.1M+ calls a day.</p>
-      <div class="cta">
-        <a class="btn primary" href="Charitha_Ramireddy_Resume.pdf" target="_blank" rel="noopener">View resume</a>
-        <a class="btn ghost" href="#contact">Get in touch</a>
+    <a class="logo" href="#home" aria-label="Charitha Ramireddy, home"><span class="mark">CR</span><span class="nm">Charitha Ramireddy</span></a>
+    <nav class="links" aria-label="Sections">
+      <a href="#work">Work</a>
+      <a href="#experience">Experience</a>
+      <a href="#skills">Skills</a>
+      <a href="#about">About</a>
+      <a href="#contact">Contact</a>
+    </nav>
+    <div class="tools">
+      <div class="swatches" role="group" aria-label="Colour theme">
+        <button type="button" data-t="ember" style="--a:#FF7A45;--b:#0D0C0B" aria-label="Ember theme" title="Ember"></button>
+        <button type="button" data-t="midnight" style="--a:#A594FF;--b:#090D1A" aria-label="Midnight theme" title="Midnight"></button>
+        <button type="button" data-t="forest" style="--a:#B7F36B;--b:#09100D" aria-label="Forest theme" title="Forest"></button>
+        <button type="button" data-t="paper" style="--a:#D9480F;--b:#F6F2EA" aria-label="Paper (light) theme" title="Paper"></button>
       </div>
-      <div class="wave" id="wave" aria-hidden="true"></div>
-    </header>
-
-    <div class="stats" role="list">
-      <div class="stat" role="listitem"><b>1.1M+</b><span>calls per day on the Alohaa platform</span></div>
-      <div class="stat" role="listitem"><b>1M+</b><span>broadcast messages sent per day</span></div>
-      <div class="stat" role="listitem"><b>200→5 ms</b><span>voice API response time after Redis caching</span></div>
-      <div class="stat" role="listitem"><b>95→99%</b><span>webhook delivery success with retry consumers</span></div>
+      <a class="btn sm" href="Charitha_Ramireddy_Resume.pdf" target="_blank" rel="noopener">Résumé</a>
     </div>
+  </div>
+</header>
 
-    <section id="work">
-      <div class="sec-head">
-        <span class="label">Selected work</span>
-        <h2>Things I've built</h2>
-      </div>
-
-      <article class="feature">
-        <h3>Real-time voice streaming gateway for AI voice bots</h3>
-        <p>A WebSocket gateway that connects live Asterisk phone calls to AI voice bots. Caller audio streams to speech-to-text, the transcript goes to an LLM, and the reply streams back through text-to-speech to the caller, all while the call is live. It now handles <b>100K+ calls a day</b>, peaking at <b>200K</b>. I also helped integrate Groq for LLM inference and ElevenLabs for speech.</p>
-        <div class="diagram">
-          <svg viewBox="0 0 760 170" role="img" aria-label="Call audio flows from Asterisk to the WebSocket gateway, then to speech-to-text, the LLM and text-to-speech, and the reply audio streams back to the caller.">
-            <defs>
-              <marker id="a1" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path class="ah" d="M0,0 L10,5 L0,10 z"/></marker>
-              <marker id="a2" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path class="ah2" d="M0,0 L10,5 L0,10 z"/></marker>
-            </defs>
-            <rect class="box" x="10" y="40" width="110" height="56" rx="8"/>
-            <text x="65" y="64" text-anchor="middle">Caller</text>
-            <text class="sub" x="65" y="81" text-anchor="middle">Asterisk / IVR</text>
-
-            <rect class="box" x="170" y="40" width="130" height="56" rx="8"/>
-            <text x="235" y="64" text-anchor="middle">WS Gateway</text>
-            <text class="sub" x="235" y="81" text-anchor="middle">Node.js · sessions</text>
-
-            <rect class="box ai" x="350" y="40" width="110" height="56" rx="8"/>
-            <text x="405" y="64" text-anchor="middle">STT</text>
-            <text class="sub" x="405" y="81" text-anchor="middle">streaming</text>
-
-            <rect class="box ai" x="500" y="40" width="110" height="56" rx="8"/>
-            <text x="555" y="64" text-anchor="middle">LLM</text>
-            <text class="sub" x="555" y="81" text-anchor="middle">Groq</text>
-
-            <rect class="box ai" x="640" y="40" width="110" height="56" rx="8"/>
-            <text x="695" y="64" text-anchor="middle">TTS</text>
-            <text class="sub" x="695" y="81" text-anchor="middle">ElevenLabs</text>
-
-            <path class="flow" d="M120 68 H166" marker-end="url(#a1)"/>
-            <path class="flow" d="M300 68 H346" marker-end="url(#a1)"/>
-            <path class="flow" d="M460 68 H496" marker-end="url(#a1)"/>
-            <path class="flow" d="M610 68 H636" marker-end="url(#a1)"/>
-            <path class="back" d="M695 96 V140 H65 V100" marker-end="url(#a2)"/>
-            <text class="sub" x="380" y="158" text-anchor="middle">reply audio streams back to the caller while the bot is still generating</text>
-            <text class="sub" x="235" y="28" text-anchor="middle">100K+ calls/day · 200K peak</text>
-          </svg>
+<main id="home">
+  <!-- ================= HERO ================= -->
+  <div class="wrap">
+    <div class="hero">
+      <div>
+        <span class="pill rv"><span class="dot"></span>Open to full-stack &amp; backend roles</span>
+        <h1 class="rv" style="--dl:.05s">I build <span class="serif">real-time voice&nbsp;&amp;&nbsp;AI</span> systems that handle <span class="hl">1.1M+ calls</span> a day.</h1>
+        <p class="lede rv" style="--dl:.1s">I'm <b>Charitha Ramireddy</b>, a full stack developer with <b>5+ years</b> on the MERN stack. At <b>Alohaa</b> I built the WebSocket gateway that lets AI voice bots hold live phone conversations, plus the microservices, APIs and dashboards around it.</p>
+        <div class="cta rv" style="--dl:.15s">
+          <a class="btn primary" href="#work">See my work
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+          </a>
+          <a class="btn" href="#contact">Get in touch</a>
         </div>
-        <div class="tags"><span>Node.js</span><span>WebSockets</span><span>Asterisk</span><span>Streaming STT</span><span>Groq</span><span>ElevenLabs</span></div>
-      </article>
+        <div class="meta rv" style="--dl:.2s">
+          <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s-7-6.2-7-11.5a7 7 0 0 1 14 0C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg>Hyderabad, India</span>
+          <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="7" width="18" height="13" rx="2"/><path d="M8 7V5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>Matr Innovations · Alohaa</span>
+          <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 10 12 5 2 10l10 5 10-5z"/><path d="M6 12v5c3 2 9 2 12 0v-5"/></svg>IIIT Sri City · 9.06 CGPA</span>
+        </div>
+      </div>
 
-      <div class="grid">
-        <article class="card">
-          <span class="metric">1M+ messages/day · 1,000+ campaigns/month</span>
-          <h3>Voice &amp; SMS broadcast platform</h3>
-          <p>Designed and built four Node.js microservices covering campaign scheduling, bulk lead upload, credit-based billing and rate-limited dispatch through RabbitMQ.</p>
-          <div class="tags"><span>Microservices</span><span>RabbitMQ</span><span>MongoDB</span></div>
+      <!-- live AI call console -->
+      <div class="console rv" style="--dl:.15s" role="img" aria-label="Animated demo of an AI voice bot call flowing through speech-to-text, LLM and text-to-speech">
+        <div class="c-head">
+          <span class="dot"></span>
+          <span class="t">Live call · AI voice bot</span>
+          <span class="c-timer mono" id="cTimer">00:00</span>
+          <span class="tag mono">simulated</span>
+        </div>
+        <div class="c-wave" id="cWave"></div>
+        <div class="c-pipe">
+          <div class="stage" data-s="stt"><b>STT</b><span class="ms" id="msStt">— ms</span> · stream</div>
+          <div class="stage" data-s="llm"><b>LLM</b><span class="ms" id="msLlm">— ms</span> · Groq</div>
+          <div class="stage" data-s="tts"><b>TTS</b><span class="ms" id="msTts">— ms</span> · 11Labs</div>
+        </div>
+        <div class="c-log" id="cLog"></div>
+        <div class="c-foot mono"><span>Asterisk → WS gateway</span><span>100K+ calls/day</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="marquee" aria-label="Technologies I work with">
+    <div class="track">
+      <span>React.js</span><span>Node.js</span><span>Express</span><span>MongoDB</span><span>Redis</span><span>RabbitMQ</span><span>WebSockets</span><span>Asterisk ARI</span><span>OpenAI</span><span>Groq</span><span>ElevenLabs</span><span>Whisper</span><span>Docker</span><span>AWS</span><span>Redux</span><span>Socket.IO</span><span>WebRTC</span>
+      <span aria-hidden="true">React.js</span><span aria-hidden="true">Node.js</span><span aria-hidden="true">Express</span><span aria-hidden="true">MongoDB</span><span aria-hidden="true">Redis</span><span aria-hidden="true">RabbitMQ</span><span aria-hidden="true">WebSockets</span><span aria-hidden="true">Asterisk ARI</span><span aria-hidden="true">OpenAI</span><span aria-hidden="true">Groq</span><span aria-hidden="true">ElevenLabs</span><span aria-hidden="true">Whisper</span><span aria-hidden="true">Docker</span><span aria-hidden="true">AWS</span><span aria-hidden="true">Redux</span><span aria-hidden="true">Socket.IO</span><span aria-hidden="true">WebRTC</span>
+    </div>
+  </div>
+
+  <!-- ================= IMPACT ================= -->
+  <section aria-label="Impact in numbers" style="padding-top:64px">
+    <div class="wrap">
+      <div class="stats rv">
+        <div class="stat"><span class="n"><span data-count="1.1" data-dec="1">1.1</span>M<em>+</em></span><span class="l">calls per day on the Alohaa platform</span></div>
+        <div class="stat"><span class="n"><span data-count="1" data-dec="0">1</span>M<em>+</em></span><span class="l">broadcast messages per day</span></div>
+        <div class="stat"><span class="n"><span data-count="100" data-dec="0">100</span>K<em>+</em></span><span class="l">AI voice bot calls per day</span></div>
+        <div class="stat"><span class="n">~<span data-count="5" data-dec="0">5</span><em>ms</em></span><span class="l">voice API response, down from 200 ms</span></div>
+        <div class="stat"><span class="n"><span data-count="99" data-dec="0">99</span><em>%</em></span><span class="l">webhook delivery success, up from 95%</span></div>
+        <div class="stat"><span class="n">$<span data-count="18" data-dec="0">18</span>K</span><span class="l">saved per year by in-house rebuilds</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= WHAT I DO ================= -->
+  <section aria-labelledby="do-h">
+    <div class="wrap">
+      <div class="head rv">
+        <span class="eyebrow">What I do</span>
+        <h2 id="do-h">Full stack, with a soft spot for <span class="serif">systems that can't go down</span>.</h2>
+      </div>
+      <div class="do">
+        <article class="rv">
+          <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12h1M7 8v8M11 5v14M15 9v6M19 11v2"/></svg></div>
+          <h3>Real-time voice &amp; AI</h3>
+          <p>WebSocket audio streaming between Asterisk and AI pipelines: streaming STT, LLMs and TTS working together while the caller is still on the line.</p>
         </article>
-        <article class="card">
-          <span class="metric">500K calls/day · 750K peak</span>
-          <h3>Programmable voice API</h3>
-          <p>REST APIs with JWT authentication, webhook callbacks and IVR analytics. Redis caching cut response time from about 200 ms to about 5 ms.</p>
-          <div class="tags"><span>Express.js</span><span>Redis</span><span>JWT</span><span>Webhooks</span></div>
+        <article class="rv" style="--dl:.08s">
+          <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><path d="M17.5 14v7M14 17.5h7"/></svg></div>
+          <h3>Scalable backends</h3>
+          <p>Node.js microservices, REST APIs and event-driven pipelines on RabbitMQ and Redis, with rate limiting, retries and idempotency built in from day one.</p>
         </article>
-        <article class="card">
-          <span class="metric">~5M messages/day · 95% → 99% delivery</span>
-          <h3>Event-driven post-call pipeline</h3>
-          <p>Moved call flows onto a RabbitMQ topic exchange and built retry consumers that made webhook delivery far more reliable without ever blocking a live call.</p>
-          <div class="tags"><span>RabbitMQ</span><span>Retries</span><span>Event-driven</span></div>
-        </article>
-        <article class="card">
-          <span class="metric">Whisper · GPT-4o · sentiment</span>
-          <h3>AI call quality dashboards</h3>
-          <p>React dashboards showing call transcripts, AI summaries, sentiment and top and bottom performing agents, powered by MongoDB aggregation pipelines.</p>
-          <div class="tags"><span>React</span><span>OpenAI</span><span>Aggregations</span></div>
-        </article>
-        <article class="card">
-          <span class="metric">10+ clients</span>
-          <h3>CRM integrations</h3>
-          <p>Auto-sync of call logs, recordings and contacts into Zoho CRM, HubSpot, Zendesk and LeadSquared, saving agents hours of manual logging every day.</p>
-          <div class="tags"><span>OAuth 2.0</span><span>REST</span><span>Integrations</span></div>
-        </article>
-        <article class="card">
-          <span class="metric">$18K saved per year</span>
-          <h3>Cost optimisation at Doosra</h3>
-          <p>Replaced paid third-party services with in-house solutions, including the Google classifier used for SMS classification, saving $1,500 a month.</p>
-          <div class="tags"><span>Node.js</span><span>Cost</span></div>
+        <article class="rv" style="--dl:.16s">
+          <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 9h18M8 14h3M8 17h6"/></svg></div>
+          <h3>Product frontends</h3>
+          <p>React dashboards that turn millions of calls into clear answers: analytics, AI call-quality insights and campaign reports backed by fast MongoDB aggregations.</p>
         </article>
       </div>
-    </section>
+    </div>
+  </section>
 
-    <section id="experience">
-      <div class="sec-head">
-        <span class="label">Experience</span>
-        <h2>Where I've worked</h2>
+  <!-- ================= WORK ================= -->
+  <section id="work" aria-labelledby="work-h">
+    <div class="wrap">
+      <div class="head rv">
+        <span class="eyebrow">Selected work</span>
+        <h2 id="work-h">Things I've built, <span class="serif">running in production</span>.</h2>
+        <p class="sub">Most of my work lives inside commercial telephony products, so instead of screenshots, here's what each system does and the numbers it runs at.</p>
+      </div>
+
+      <div class="bento">
+        <article class="tile big rv">
+          <div class="k"><span>01 · Flagship</span><span class="co">Alohaa</span></div>
+          <h3>Real-time voice streaming gateway for AI voice bots</h3>
+          <p>Live caller audio streams from Asterisk over WebSockets into streaming speech-to-text. The transcript goes to an LLM, and the reply streams back through text-to-speech while the model is still generating, so the bot sounds natural instead of laggy.</p>
+          <div class="diagram">
+            <svg viewBox="0 0 520 150" role="img" aria-label="Caller audio flows from Asterisk to the WebSocket gateway, then to speech-to-text, the LLM and text-to-speech; reply audio streams back to the caller.">
+              <defs>
+                <marker id="m1" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path class="ah" d="M0,0 L10,5 L0,10 z"/></marker>
+                <marker id="m2" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path class="ah2" d="M0,0 L10,5 L0,10 z"/></marker>
+              </defs>
+              <rect class="bx" x="10" y="30" width="84" height="50" rx="10"/><text x="52" y="52" text-anchor="middle">Caller</text><text class="s" x="52" y="68" text-anchor="middle">Asterisk</text>
+              <rect class="bx" x="114" y="30" width="84" height="50" rx="10"/><text x="156" y="52" text-anchor="middle">Gateway</text><text class="s" x="156" y="68" text-anchor="middle">WebSocket</text>
+              <rect class="bx ai" x="218" y="30" width="84" height="50" rx="10"/><text x="260" y="52" text-anchor="middle">STT</text><text class="s" x="260" y="68" text-anchor="middle">streaming</text>
+              <rect class="bx ai" x="322" y="30" width="84" height="50" rx="10"/><text x="364" y="52" text-anchor="middle">LLM</text><text class="s" x="364" y="68" text-anchor="middle">Groq</text>
+              <rect class="bx ai" x="426" y="30" width="84" height="50" rx="10"/><text x="468" y="52" text-anchor="middle">TTS</text><text class="s" x="468" y="68" text-anchor="middle">ElevenLabs</text>
+              <path class="fl" d="M94 55 H110" marker-end="url(#m1)"/>
+              <path class="fl" d="M198 55 H214" marker-end="url(#m1)"/>
+              <path class="fl" d="M302 55 H318" marker-end="url(#m1)"/>
+              <path class="fl" d="M406 55 H422" marker-end="url(#m1)"/>
+              <path class="bk" d="M468 80 V118 H52 V84" marker-end="url(#m2)"/>
+              <text class="s" x="260" y="138" text-anchor="middle">reply audio streams back to the caller in real time</text>
+              <text class="s" x="156" y="20" text-anchor="middle">bi-directional audio</text>
+            </svg>
+          </div>
+          <div class="big-stats">
+            <div><b>100K+</b><span>calls / day</span></div>
+            <div><b>200K</b><span>peak / day</span></div>
+            <div><b>3</b><span>AI stages streamed</span></div>
+          </div>
+          <ul class="tags"><li>Node.js</li><li>WebSockets</li><li>Asterisk ARI</li><li>Streaming STT</li><li>Groq</li><li>ElevenLabs</li></ul>
+        </article>
+
+        <article class="tile rv" style="--dl:.06s">
+          <div class="k"><span>02</span><span class="co">Alohaa</span></div>
+          <h3>Programmable voice API</h3>
+          <p>REST APIs with JWT auth, webhook callbacks and IVR analytics at 500K calls/day (750K peak).</p>
+          <div class="viz bar-cmp" role="img" aria-label="Response time dropped from about 200 milliseconds to about 5 milliseconds">
+            <div><span>before</span><i style="--w:100%"></i><b>~200ms</b></div>
+            <div class="after"><span>w/ Redis</span><i style="--w:3%"></i><b>~5ms</b></div>
+          </div>
+          <ul class="tags"><li>Express</li><li>Redis</li><li>JWT</li></ul>
+        </article>
+
+        <article class="tile rv" style="--dl:.12s">
+          <div class="k"><span>03</span><span class="co">Alohaa</span></div>
+          <h3>Event-driven post-call pipeline</h3>
+          <div class="viz ring">
+            <svg viewBox="0 0 84 84" aria-hidden="true"><circle class="bgc" cx="42" cy="42" r="36"/><circle class="fgc" cx="42" cy="42" r="36"/></svg>
+            <span><b>99%</b>webhook delivery, up from 95%</span>
+          </div>
+          <p>Call flows moved onto a RabbitMQ topic exchange (~5M messages/day) with retry consumers that never block a live call.</p>
+          <ul class="tags"><li>RabbitMQ</li><li>Retries</li><li>Idempotency</li></ul>
+        </article>
+
+        <article class="tile rv">
+          <div class="k"><span>04</span><span class="co">Alohaa</span></div>
+          <h3>Voice &amp; SMS broadcast platform</h3>
+          <div class="num">1M+<small>messages / day</small></div>
+          <div class="viz flowmini" role="img" aria-label="Schedule, upload, bill, then rate-limited dispatch">
+            <span>schedule</span><em>→</em><span>upload</span><em>→</em><span>bill</span><em>→</em><span>dispatch</span>
+          </div>
+          <p>Four Node.js microservices for scheduling, bulk lead upload, credit billing and rate-limited dispatch. 1,000+ campaigns a month.</p>
+          <ul class="tags"><li>Microservices</li><li>RabbitMQ</li><li>MongoDB</li></ul>
+        </article>
+
+        <article class="tile rv" style="--dl:.06s">
+          <div class="k"><span>05</span><span class="co">Alohaa</span></div>
+          <h3>AI call quality dashboards</h3>
+          <div class="viz sent" aria-hidden="true">
+            <div><span>positive</span><i style="--w:72%; background: var(--accent)"></i></div>
+            <div><span>neutral</span><i style="--w:44%; background: var(--accent-2)"></i></div>
+            <div><span>negative</span><i style="--w:18%; background: var(--faint)"></i></div>
+          </div>
+          <p>Whisper transcripts, GPT-4o summaries, sentiment and top/bottom performing agents, all on MongoDB aggregation pipelines.</p>
+          <ul class="tags"><li>React</li><li>OpenAI</li><li>Aggregations</li></ul>
+        </article>
+
+        <article class="tile rv" style="--dl:.12s">
+          <div class="k"><span>06</span><span class="co">Alohaa</span></div>
+          <h3>CRM integrations</h3>
+          <div class="viz chips"><span>Zoho</span><span>HubSpot</span><span>Zendesk</span><span>LeadSquared</span></div>
+          <p>Call logs, recordings and contacts auto-synced for 10+ clients, saving agents hours of manual logging every day.</p>
+          <ul class="tags"><li>OAuth 2.0</li><li>Webhooks</li></ul>
+        </article>
+
+        <article class="tile wide rv">
+          <div class="k"><span>07</span><span class="co">Doosra</span></div>
+          <h3>Replacing paid services with in-house ones</h3>
+          <div class="num">$18K<small>saved per year · $1,500 / month</small></div>
+          <p>Audited paid third-party services and rebuilt the expensive ones in-house, including the paid Google classifier that handled SMS classification.</p>
+          <ul class="tags"><li>Node.js</li><li>Cost optimisation</li></ul>
+        </article>
+
+        <article class="tile rv" style="--dl:.06s">
+          <div class="k"><span>08</span><span class="co">EY</span></div>
+          <h3>DigiFAAS financial reporting</h3>
+          <div class="num">40%<small>faster report prep</small></div>
+          <p>Automated balance sheet and P&amp;L generation across 100K+ records and 50+ client entities.</p>
+          <ul class="tags"><li>Python</li><li>R</li><li>React</li></ul>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= EXPERIENCE ================= -->
+  <section id="experience" aria-labelledby="exp-h">
+    <div class="wrap">
+      <div class="head rv">
+        <span class="eyebrow">Experience</span>
+        <h2 id="exp-h">Where I've <span class="serif">shipped</span>.</h2>
       </div>
       <div class="timeline">
-        <div class="job">
-          <span class="when">Jul 2024 – Present</span>
-          <h3>Full Stack Developer <span class="where">· Matr Innovations (Alohaa)</span></h3>
-          <p>Core developer on Alohaa, a B2B cloud telephony SaaS used by 50+ businesses and 1,000+ agents. I work directly with clients on requirements and ship features end to end: React UI, Node.js/Express APIs and MongoDB schemas, deployed with Docker and Bitbucket CI/CD.</p>
+        <div class="job now rv">
+          <div class="when"><b>Jul 2024 — Now</b>Hyderabad</div>
+          <div class="card">
+            <h3>Full Stack Developer · <a href="https://alohaa.ai" target="_blank" rel="noopener">Matr Innovations ↗</a></h3>
+            <span class="prod">Alohaa · B2B cloud telephony SaaS</span>
+            <p>Core developer on a platform used by 50+ businesses and 1,000+ agents, handling 1.1M+ calls a day across voice APIs, broadcast campaigns and AI voice streaming.</p>
+            <ul class="pts">
+              <li>Built the <b>WebSocket voice streaming gateway</b> for AI voice bots: 100K+ calls/day, 200K peak. Helped integrate Groq and ElevenLabs.</li>
+              <li>Designed four <b>Node.js microservices</b> for voice &amp; SMS broadcasts sending 1M+ messages/day.</li>
+              <li>Built the programmable voice API (500K calls/day); <b>Redis caching</b> cut response time from ~200 ms to ~5 ms.</li>
+              <li>Moved call flows onto an <b>event-driven pipeline</b> (~5M messages/day), raising webhook success from 95% to 99%.</li>
+              <li>Work directly with clients and ship end to end, deployed with Docker, Bitbucket CI/CD and Sentry.</li>
+            </ul>
+            <ul class="tags"><li>Node.js</li><li>React</li><li>WebSockets</li><li>RabbitMQ</li><li>Redis</li><li>MongoDB</li><li>Asterisk</li><li>Docker</li></ul>
+          </div>
         </div>
-        <div class="job">
-          <span class="when">Apr 2022 – Jun 2024</span>
-          <h3>Full Stack Developer <span class="where">· Ten20 Infomedia (Doosra)</span></h3>
-          <p>Built features across the React frontend and Node.js backend of Doosra, a B2C cloud telephony app with 10K+ users, 20K+ calls and 40K+ messages a day.</p>
-          <ul>
-            <li>Analytics dashboards for calls, contacts and messages with optimised MongoDB aggregation pipelines.</li>
-            <li>Feature releases behind Unleash flags; billing, reports and cleanup automated with cron jobs.</li>
-          </ul>
+
+        <div class="job rv">
+          <div class="when"><b>Apr 2022 — Jun 2024</b>Hyderabad</div>
+          <div class="card">
+            <h3>Full Stack Developer · Ten20 Infomedia</h3>
+            <span class="prod">Doosra · B2C cloud telephony app</span>
+            <p>Built features across the React frontend and Node.js/Express backend of an app with 10K+ users, 20K+ calls and 40K+ messages a day.</p>
+            <ul class="pts">
+              <li>Drove <b>cost optimisations</b> saving $1,500/month ($18K/year) by replacing paid services in-house.</li>
+              <li>Built call, contact and message <b>analytics dashboards</b> on tuned MongoDB aggregation pipelines.</li>
+              <li>Shipped features behind <b>Unleash</b> flags; automated billing, reports and cleanup with cron jobs.</li>
+            </ul>
+            <ul class="tags"><li>React</li><li>Redux</li><li>Node.js</li><li>Express</li><li>MongoDB</li><li>Unleash</li></ul>
+          </div>
         </div>
-        <div class="job">
-          <span class="when">May 2018 – Nov 2018</span>
-          <h3>Intern &amp; Trainee, FAAS <span class="where">· Ernst &amp; Young (EY)</span></h3>
-          <p>Built the financial reporting module in DIGIFAAS, EY's in-house accounting platform, automating balance sheet and P&amp;L statement generation within the Financial Accounting Advisory Services practice.</p>
+
+        <div class="job rv">
+          <div class="when"><b>May — Nov 2018</b>Hyderabad</div>
+          <div class="card">
+            <h3>Engineer · <a href="https://www.ey.com" target="_blank" rel="noopener">Ernst &amp; Young (EY) ↗</a></h3>
+            <span class="prod">Intern May–Jun · Engineer Jul–Nov</span>
+            <ul class="pts">
+              <li>Built the <b>financial reporting module</b> for DigiFAAS, EY's digital finance platform, automating balance sheet and P&amp;L generation in Python.</li>
+              <li>Python and R workflows cut report preparation time by <b>40%</b> across 100K+ records for 50+ client entities.</li>
+              <li>As an intern, built the Python prototypes that became the DigiFAAS reporting module.</li>
+            </ul>
+            <ul class="tags"><li>Python</li><li>R</li><li>React</li><li>SQL</li></ul>
+          </div>
         </div>
       </div>
-    </section>
+    </div>
+  </section>
 
-    <section id="skills">
-      <div class="sec-head">
-        <span class="label">Toolbox</span>
-        <h2>Skills</h2>
+  <!-- ================= SKILLS ================= -->
+  <section id="skills" aria-labelledby="sk-h">
+    <div class="wrap">
+      <div class="head rv">
+        <span class="eyebrow">Toolbox</span>
+        <h2 id="sk-h">The stack I <span class="serif">reach for</span>.</h2>
       </div>
-      <dl class="skills">
-        <dt>Frontend</dt><dd>React.js, Redux, React Hooks, Material UI, Socket.IO, WebRTC</dd>
-        <dt>Backend</dt><dd>Node.js, Express.js, REST APIs, microservices, JWT, OAuth 2.0, webhooks</dd>
-        <dt>Data &amp; messaging</dt><dd>MongoDB (aggregations, indexing, schema design), Redis, RabbitMQ, cron jobs</dd>
-        <dt>AI &amp; voice</dt><dd>OpenAI (GPT-4o, Whisper), Groq, ElevenLabs, STT/TTS, Asterisk, IVR, voice bots</dd>
-        <dt>Architecture</dt><dd>Event-driven systems, message queues, rate limiting, retry handling</dd>
-        <dt>Cloud &amp; DevOps</dt><dd>AWS S3, Docker, PM2, Bitbucket CI/CD, Unleash, Sentry, Git</dd>
-        <dt>Languages</dt><dd>JavaScript (ES6+), Python</dd>
-      </dl>
-    </section>
+      <div class="skills">
+        <div class="sk rv"><h3>Frontend</h3><ul class="tags"><li>React.js</li><li>Redux</li><li>Hooks</li><li>Material UI</li><li>Socket.IO</li><li>WebRTC</li><li>AngularJS</li><li>HTML5 / CSS3</li></ul></div>
+        <div class="sk rv" style="--dl:.05s"><h3>Backend</h3><ul class="tags"><li>Node.js</li><li>Express.js</li><li>REST APIs</li><li>Microservices</li><li>WebSockets</li><li>JWT</li><li>OAuth 2.0</li><li>Webhooks</li></ul></div>
+        <div class="sk rv" style="--dl:.1s"><h3>AI &amp; voice</h3><ul class="tags"><li>OpenAI GPT-4o</li><li>Whisper</li><li>Claude API</li><li>Groq</li><li>ElevenLabs</li><li>RAG</li><li>Asterisk ARI</li><li>IVR</li><li>Voice bots</li></ul></div>
+        <div class="sk rv"><h3>Data &amp; messaging</h3><ul class="tags"><li>MongoDB</li><li>Redis</li><li>RabbitMQ</li><li>MySQL</li><li>SQL Server</li><li>Oracle</li><li>Cron jobs</li></ul></div>
+        <div class="sk rv" style="--dl:.05s"><h3>Architecture</h3><ul class="tags"><li>System design</li><li>Event-driven</li><li>Message queues</li><li>Rate limiting</li><li>Retries</li><li>Idempotency</li><li>Observability</li></ul></div>
+        <div class="sk rv" style="--dl:.1s"><h3>Cloud &amp; DevOps</h3><ul class="tags"><li>AWS (EC2, S3, Lambda)</li><li>GCP</li><li>Docker</li><li>Linux</li><li>PM2</li><li>Bitbucket CI/CD</li><li>Sentry</li><li>Unleash</li></ul></div>
+      </div>
+    </div>
+  </section>
 
-    <section id="education">
-      <div class="sec-head">
-        <span class="label">Education</span>
-        <h2>Background</h2>
+  <!-- ================= ABOUT / EDUCATION ================= -->
+  <section id="about" aria-labelledby="ab-h">
+    <div class="wrap">
+      <div class="head rv">
+        <span class="eyebrow">About</span>
+        <h2 id="ab-h">Engineer by training, <span class="serif">builder by habit</span>.</h2>
+        <p class="sub">I studied Electronics &amp; Communication, started my career building finance software at EY, and found my place in telephony, where signals, systems and software all meet.</p>
       </div>
       <div class="edu">
-        <article class="card">
-          <span class="metric">2014 – 2018 · CGPA 9.06 / 10</span>
+        <article class="rv">
+          <span class="badge">2014 — 2018</span>
           <h3>B.Tech, Electronics &amp; Communication Engineering</h3>
-          <p>Indian Institute of Information Technology (IIIT) Sri City, an Institute of National Importance. Teaching Assistant for Mathematics, Basic Electronic Circuits and VLSI.</p>
+          <p>IIIT Sri City, an Institute of National Importance.</p>
+          <div class="gpa">9.06<small> / 10 CGPA</small></div>
         </article>
-        <article class="card">
-          <span class="metric">Big Four</span>
-          <h3>Started my career at EY</h3>
-          <p>Six months in EY's Financial Accounting Advisory Services team building financial reporting software, where I first learned how enterprise clients expect software to be delivered.</p>
+        <article class="rv" style="--dl:.06s">
+          <span class="badge">2016 — 2018</span>
+          <h3>Teaching Assistant</h3>
+          <p>Selected as TA for Mathematics, Basic Electronic Circuits and VLSI for three years while still a student.</p>
+        </article>
+        <article class="rv" style="--dl:.12s">
+          <span class="badge">Class 5 — 10</span>
+          <h3>Jawahar Navodaya Vidyalaya</h3>
+          <p>Earned a merit seat by cracking the highly competitive JNV national entrance exam in Class 5.</p>
         </article>
       </div>
-    </section>
+    </div>
+  </section>
 
-    <section class="contact" id="contact">
-      <h2>Let's talk</h2>
-      <p>I'm open to full-stack and backend roles on high-scale, real-time or AI-driven products. The fastest way to reach me is email.</p>
-      <span class="mail">charitha.vempally@gmail.com</span>
-      <div class="cta">
-        <a class="btn primary" href="mailto:charitha.vempally@gmail.com">Email me</a>
-        <a class="btn ghost" href="Charitha_Ramireddy_Resume.pdf" target="_blank" rel="noopener">Download resume</a>
-        <!-- Add your LinkedIn / GitHub here once you have the links:
-        <a class="btn ghost" href="https://www.linkedin.com/in/YOUR-ID" target="_blank" rel="noopener">LinkedIn</a>
-        <a class="btn ghost" href="https://github.com/YOUR-ID" target="_blank" rel="noopener">GitHub</a>
-        -->
+  <!-- ================= CONTACT ================= -->
+  <section id="contact" aria-labelledby="ct-h" style="padding-bottom: 8px">
+    <div class="wrap">
+      <div class="contact rv">
+        <span class="eyebrow">Contact</span>
+        <h2 id="ct-h">Let's build something <span class="serif">real-time</span>.</h2>
+        <p class="sub">I'm open to full-stack and backend roles on high-scale, real-time or AI-driven products. Email is the fastest way to reach me.</p>
+        <div class="cta">
+          <a class="btn primary" href="mailto:charitha.vempally@gmail.com">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2.5" y="4.5" width="19" height="15" rx="2"/><path d="m3 6 9 7 9-7"/></svg>
+            Say hello
+          </a>
+          <button class="btn copy" type="button" id="copyBtn" data-email="charitha.vempally@gmail.com" title="Copy email address">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="12" height="12" rx="2"/><path d="M5 15V5a2 2 0 0 1 2-2h10"/></svg>
+            <span class="lbl">charitha.vempally@gmail.com</span><span class="ok" role="status">Copied!</span>
+          </button>
+          <a class="btn" href="Charitha_Ramireddy_Resume.pdf" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12m0 0-4-4m4 4 4-4M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2"/></svg>
+            Résumé
+          </a>
+        </div>
       </div>
-    </section>
-  </div>
+    </div>
+  </section>
 </main>
 
 <footer>
-  <div class="wrap">© <span id="yr">2026</span> Charitha Ramireddy · Hyderabad, India</div>
+  <div class="wrap">
+    <span>© <span id="yr">2026</span> Charitha Ramireddy · Hyderabad, India</span>
+    <nav aria-label="Profiles">
+      <a href="https://github.com/charitharamireddy" target="_blank" rel="noopener">GitHub</a>
+      <!-- <a href="https://www.linkedin.com/in/YOUR-ID" target="_blank" rel="noopener">LinkedIn</a> -->
+      <a href="mailto:charitha.vempally@gmail.com">Email</a>
+      <a href="#home">Back to top ↑</a>
+    </nav>
+  </div>
 </footer>
 
 <script>
-  // Waveform bars in the hero
-  const wave = document.getElementById("wave");
-  const n = 90;
-  for (let i = 0; i < n; i++) {
-    const b = document.createElement("i");
-    const env = Math.sin(Math.PI * i / n);
-    const h = 12 + env * (20 + 30 * Math.abs(Math.sin(i * 0.7) * Math.cos(i * 0.23)));
-    b.style.setProperty("--h", h.toFixed(0) + "px");
-    b.style.setProperty("--d", (-(i % 17) * 0.09).toFixed(2) + "s");
-    wave.appendChild(b);
+(function () {
+  var reduce = window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches;
+  var root = document.documentElement;
+
+  /* ---------- theme swatches ---------- */
+  var sw = document.querySelectorAll(".swatches button");
+  function markTheme() {
+    var cur = root.getAttribute("data-theme");
+    sw.forEach(function (b) { b.setAttribute("aria-pressed", b.dataset.t === cur ? "true" : "false"); });
   }
+  sw.forEach(function (b) {
+    b.addEventListener("click", function () {
+      root.setAttribute("data-theme", b.dataset.t);
+      try { localStorage.setItem("cr-theme", b.dataset.t); } catch (e) {}
+      markTheme();
+    });
+  });
+  markTheme();
+
+  /* ---------- nav: border on scroll + active link ---------- */
+  var top = document.getElementById("top");
+  var links = document.querySelectorAll(".links a");
+  var secs = Array.prototype.map.call(links, function (a) { return document.querySelector(a.getAttribute("href")); });
+  function onScroll() {
+    top.classList.toggle("scrolled", window.scrollY > 8);
+    var y = window.scrollY + window.innerHeight * 0.3, idx = -1;
+    secs.forEach(function (s, i) { if (s && s.offsetTop <= y) idx = i; });
+    if (window.innerHeight + window.scrollY >= document.body.scrollHeight - 4) idx = secs.length - 1;
+    links.forEach(function (a, i) { a.classList.toggle("active", i === idx); });
+  }
+  window.addEventListener("scroll", onScroll, { passive: true });
+  onScroll();
+
+  /* ---------- reveal + count-up ---------- */
+  function countUp(el) {
+    var target = parseFloat(el.dataset.count), dec = +el.dataset.dec || 0;
+    if (reduce) { el.textContent = target.toFixed(dec); return; }
+    var t0 = null, dur = 1400;
+    function step(t) {
+      if (!t0) t0 = t;
+      var p = Math.min((t - t0) / dur, 1), e = 1 - Math.pow(1 - p, 3);
+      el.textContent = (target * e).toFixed(dec);
+      if (p < 1) requestAnimationFrame(step);
+    }
+    requestAnimationFrame(step);
+  }
+  var rvs = document.querySelectorAll(".rv");
+  if ("IntersectionObserver" in window && !reduce) {
+    var io = new IntersectionObserver(function (es) {
+      es.forEach(function (en) {
+        if (!en.isIntersecting) return;
+        en.target.classList.add("in");
+        en.target.querySelectorAll("[data-count]").forEach(countUp);
+        io.unobserve(en.target);
+      });
+    }, { rootMargin: "0px 0px -6% 0px" });
+    rvs.forEach(function (el) { io.observe(el); });
+  } else {
+    rvs.forEach(function (el) { el.classList.add("in"); });
+  }
+
+  /* ---------- tile glow follows pointer ---------- */
+  document.querySelectorAll(".tile").forEach(function (t) {
+    t.addEventListener("pointermove", function (e) {
+      var r = t.getBoundingClientRect();
+      t.style.setProperty("--x", (e.clientX - r.left) + "px");
+      t.style.setProperty("--y", (e.clientY - r.top) + "px");
+    });
+  });
+
+  /* ---------- copy email ---------- */
+  var cb = document.getElementById("copyBtn");
+  cb.addEventListener("click", function () {
+    var mail = cb.dataset.email;
+    function done() { cb.classList.add("done"); setTimeout(function () { cb.classList.remove("done"); }, 1800); }
+    if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(mail).then(done, function () { location.href = "mailto:" + mail; });
+    else location.href = "mailto:" + mail;
+  });
+
   document.getElementById("yr").textContent = new Date().getFullYear();
+
+  /* ---------- live call console ---------- */
+  var log = document.getElementById("cLog"), waveEl = document.getElementById("cWave");
+  var stages = {}; document.querySelectorAll(".stage").forEach(function (s) { stages[s.dataset.s] = s; });
+  var ms = { stt: document.getElementById("msStt"), llm: document.getElementById("msLlm"), tts: document.getElementById("msTts") };
+  var N = 48, bars = [];
+  for (var i = 0; i < N; i++) { var b = document.createElement("i"); waveEl.appendChild(b); bars.push(b); }
+
+  var script = [
+    ["caller", "Hi, I wanted to check on my delivery."],
+    ["bot", "Sure! Could you tell me your order number?"],
+    ["caller", "It's 4 8 2 1 9."],
+    ["bot", "Thanks! Order 48219 is out for delivery and should reach you by 6 PM today."],
+    ["caller", "Great, that's all. Thank you!"],
+    ["bot", "Happy to help. Have a lovely evening!"]
+  ];
+
+  function addMsg(who, text) {
+    var m = document.createElement("div");
+    m.className = "msg " + who;
+    m.innerHTML = '<span class="who">' + (who === "bot" ? "AI bot" : "Caller") + "</span><p></p>";
+    var p = m.querySelector("p");
+    if (text) p.textContent = text;
+    log.appendChild(m);
+    while (log.children.length > 5) log.removeChild(log.firstChild);
+    return p;
+  }
+
+  if (reduce) {
+    script.slice(0, 4).forEach(function (l) { addMsg(l[0], l[1]); });
+    ms.stt.textContent = "140 ms"; ms.llm.textContent = "310 ms"; ms.tts.textContent = "120 ms";
+    bars.forEach(function (b, i) { b.style.height = (8 + 18 * Math.abs(Math.sin(i * .5))) + "px"; });
+    return;
+  }
+
+  var talking = null;
+  setInterval(function () {
+    waveEl.className = "c-wave" + (talking ? " talk-" + talking : "");
+    bars.forEach(function (b, i) {
+      var env = Math.sin(Math.PI * i / N);
+      var h = talking ? 6 + env * (10 + Math.random() * 34) : 4 + Math.random() * 3;
+      b.style.height = h.toFixed(0) + "px";
+    });
+  }, 110);
+
+  var t0 = Date.now(), timer = document.getElementById("cTimer");
+  setInterval(function () {
+    var s = Math.floor((Date.now() - t0) / 1000);
+    timer.textContent = String(Math.floor(s / 60)).padStart(2, "0") + ":" + String(s % 60).padStart(2, "0");
+  }, 500);
+
+  function sleep(n) { return new Promise(function (r) { setTimeout(r, n); }); }
+  function on(s) { Object.keys(stages).forEach(function (k) { stages[k].classList.toggle("on", k === s); }); }
+  function rnd(a, b) { return Math.round(a + Math.random() * (b - a)); }
+  async function type(p, text, speed) {
+    var caret = document.createElement("span"); caret.className = "caret";
+    for (var i = 1; i <= text.length; i++) { p.textContent = text.slice(0, i); p.appendChild(caret); await sleep(speed); }
+    caret.remove();
+  }
+
+  async function run() {
+    while (true) {
+      log.innerHTML = ""; t0 = Date.now();
+      for (var i = 0; i < script.length; i++) {
+        var who = script[i][0], text = script[i][1];
+        if (who === "caller") {
+          talking = "caller"; on("stt"); ms.stt.textContent = rnd(110, 180) + " ms";
+          await type(addMsg("caller", ""), text, 38);
+          talking = null; await sleep(250);
+        } else {
+          on("llm"); ms.llm.textContent = rnd(240, 380) + " ms";
+          var p = addMsg("bot", ""); p.parentNode.classList.add("thinking"); p.textContent = "thinking…";
+          await sleep(650);
+          p.parentNode.classList.remove("thinking");
+          on("tts"); ms.tts.textContent = rnd(90, 150) + " ms"; talking = "bot";
+          await type(p, text, 30);
+          talking = null; on(null); await sleep(900);
+        }
+      }
+      await sleep(2500);
+    }
+  }
+  run();
+})();
 </script>
 </body>
 </html>
